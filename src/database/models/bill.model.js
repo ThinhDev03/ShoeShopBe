@@ -3,12 +3,16 @@ import mongooseAutoPopulate from "mongoose-autopopulate";
 
 const OrderSchema = new Schema(
   {
-    userId: {
+    user_id: {
       type: mongoose.Types.ObjectId,
       ref: "users",
-      autopopulate: { select: "_id" },
+      autopopulate: { select: "_id fullname" },
     },
     address: {
+      type: String,
+      required: true,
+    },
+    status: {
       type: String,
       required: true,
     },
@@ -16,13 +20,22 @@ const OrderSchema = new Schema(
       type: String,
       required: true,
     },
-    phoneNumber: {
+    phone_number: {
       type: String,
       required: true,
     },
     note: {
       type: String,
       required: true,
+    },
+    total_money: {
+      type: Number,
+      required: true,
+    },
+    payment_id: {
+      type: mongoose.Types.ObjectId,
+      ref: "payment",
+      autopopulate: { select: "status payment_method" },
     },
   },
   {

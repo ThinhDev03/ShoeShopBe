@@ -3,27 +3,26 @@ import mongooseAutoPopulate from "mongoose-autopopulate";
 
 const ProductSchema = new Schema(
   {
-    productName: {
+    name: {
       type: String,
       required: true,
     },
-    quantity: {
-      type: String,
-      required: true,
-    },
+
     description: {
       type: String,
       required: true,
     },
-    color: {
-      type: String,
-      required: true,
+    brand_id: {
+      type: mongoose.Types.ObjectId,
+      ref: "brand",
+      autopopulate: { select: "brand_name" },
     },
-    size: {
-      type: String,
-      required: true,
+    category_id: {
+      type: mongoose.Types.ObjectId,
+      ref: "category",
+      autopopulate: { select: "category_name" },
     },
-    image: {
+    thumbnail: {
       type: String,
     },
   },
