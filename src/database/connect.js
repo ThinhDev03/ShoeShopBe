@@ -7,6 +7,8 @@ const DB_URL = `mongodb+srv://${process.env.USERNAME_DB}:${process.env.PASSWORD_
 
 //export this function and imported by server.js
 export const connectMongoDB = () => {
+  mongoose.set("strictQuery", false);
+
   mongoose.connect(DB_URL, {
     useNewUrlParser: true,
   });

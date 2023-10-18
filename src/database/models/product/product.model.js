@@ -22,8 +22,13 @@ const ProductSchema = new Schema(
       ref: "category",
       autopopulate: { select: "category_name" },
     },
+
     thumbnail: {
       type: String,
+    },
+    price: {
+      type: Number,
+      require: true,
     },
   },
   {
