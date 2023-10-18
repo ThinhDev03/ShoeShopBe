@@ -17,14 +17,12 @@ app.use(
   cors({
     credentials: true,
     origin: [CLIENT_URL],
+    optionSuccessStatus: 200,
   })
 );
 app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
+  res.setHeader("Access-Control-Allow-Origin", CLIENT_URL);
+  res.header("Access-Control-Allow-Credentials", true);
   next();
 });
 app.use(express.json({ limit: "50mb" }));
