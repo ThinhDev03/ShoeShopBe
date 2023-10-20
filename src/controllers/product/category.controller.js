@@ -52,6 +52,24 @@ export const update = async (req, res) => {
   }
 };
 
+// [GET] api/category/:id
+export const findOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await categoryRepository.findById(id);
+
+    const response = {
+      data,
+      message: "Lấy danh mục thành công.",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
 // [DELETE] api/category/remove/:id
 export const remove = async (req, res) => {
   try {
