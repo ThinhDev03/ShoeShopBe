@@ -1,17 +1,17 @@
 import mongoose, { Schema } from "mongoose";
 import mongooseAutoPopulate from "mongoose-autopopulate";
 
-const OrderDetailSchema = new Schema(
+const CartSchema = new Schema(
   {
-    orderId: {
+    user_id: {
       type: mongoose.Types.ObjectId,
-      ref: "order",
+      ref: "users",
       autopopulate: { select: "_id" },
     },
-    productId: {
+    product_id: {
       type: mongoose.Types.ObjectId,
-      ref: "product",
-      autopopulate: { select: "_id" },
+      ref: "productDetail",
+      autopopulate: { select: "_id price product_id" },
     },
     quantity: {
       type: Number,
@@ -23,6 +23,6 @@ const OrderDetailSchema = new Schema(
   }
 );
 
-OrderDetailSchema.plugin(mongooseAutoPopulate);
+CartSchema.plugin(mongooseAutoPopulate);
 
-export default mongoose.model("orderDetail", OrderDetailSchema);
+export default mongoose.model("cart", CartSchema);

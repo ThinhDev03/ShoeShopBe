@@ -12,7 +12,15 @@ const UserSchema = new Schema(
       type: String,
       required: true,
     },
+    username: {
+      type: String,
+      required: true,
+    },
     fullname: {
+      type: String,
+      required: true,
+    },
+    address: {
       type: String,
       required: true,
     },
@@ -21,7 +29,7 @@ const UserSchema = new Schema(
     },
     role: {
       type: String,
-      required: true,
+      default: "USER",
     },
     phone: {
       type: String,
