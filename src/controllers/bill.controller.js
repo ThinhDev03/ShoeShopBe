@@ -62,6 +62,48 @@ export const getBillDetailById = async (req, res) => {
   }
 };
 
+export const getByUserId = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await billRepository.find({ user_id: id });
+        const response = {
+            data,
+            message: "Lấy danh sách bill thành công",
+        };
+
+        return responseSuccess(res, response);
+    } catch (error) {
+        return responseError(res, error);
+    }
+};
+export const getBillDetailById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const data = await billDetailModel.find({
+            bill_id: id,
+        });
+        const flatData = data.map((order) => ({
+            _id: order._id,
+            bill_id: order.bill_id._id,
+            createdAt: order.createdAt,
+            productDetail_id: order.product_id.product_id._id,
+            product_name: order.product_id.product_id.name,
+            price: order.product_id.price,
+            size: order.product_id.size_id.size_name,
+            color: order.product_id.color_id.color_name,
+            image: order.product_id.image_id.image_url,
+            quantity: order.quantity,
+        }));
+        const response = {
+            data: flatData,
+            message: "Lấy danh sách bill thành công",
+        };
+        return responseSuccess(res, response);
+    } catch (error) {
+        return responseError(res, error);
+    }
+};
+
 // [POST] api/bill/create
 export const create = async (req, res) => {
   try {
@@ -82,6 +124,7 @@ export const create = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
+
 };
 
 // [POST] api/bill/update/:id
@@ -112,6 +155,7 @@ export const update = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
+
 };
 
 // [DELETE] api/bill/remove/:id

@@ -47,6 +47,7 @@ export const create = async (req, res) => {
 
 // [POST] api/comment/:id
 export const update = async (req, res) => {
+
   try {
     const body = req.body;
     const { id } = req.params;
@@ -61,10 +62,12 @@ export const update = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
+
 };
 
 // [DELETE] api/comment/remove/:id
 export const remove = async (req, res) => {
+
   try {
     const { id } = req.params;
     const data = await commentRepository.delete(id);
@@ -78,4 +81,5 @@ export const remove = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
+
 };

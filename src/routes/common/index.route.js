@@ -18,6 +18,7 @@ const commonRoutes = {
       route: billRoute,
     },
   ],
+
 };
 
 export default commonRoutes;
