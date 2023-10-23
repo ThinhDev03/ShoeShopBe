@@ -2,10 +2,10 @@ import jwt from "jsonwebtoken";
 import UserSchema from "../database/models/user.model";
 const checkAuth = async (req, res, next) => {
   try {
-    const { email, password } = req.body;
-    const existUser = await UserSchema.findOne({ email });
+    const { username, password } = req.body;
+    const existUser = await UserSchema.findOne({ username });
     if (!existUser) {
-      return res.status(400).json({ message: "Email not found" });
+      return res.status(400).json({ message: "username not found" });
     }
 
     if (!existUser.authenticate(password)) {
