@@ -12,6 +12,7 @@ class BaseRepository {
     return this.Model.findOne(option).exec();
   }
 
+
   async read() {
     return this.Model.find({});
   }

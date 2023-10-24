@@ -5,6 +5,7 @@ class BillRepository extends BaseRepository {
   constructor(props) {
     super(props);
   }
+
 }
 
 export default new BillRepository({ model: billModel });
