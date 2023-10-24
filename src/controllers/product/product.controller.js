@@ -14,7 +14,6 @@ export const read = async (req, res) => {
     const category = req.query.category ? { category_id: req.query.category } : {};
     const perPage = limit * page - limit;
 
-    console.log(category);
     const product = await productModel
       .find({
         ...category,
