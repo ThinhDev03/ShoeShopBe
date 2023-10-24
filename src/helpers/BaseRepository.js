@@ -8,6 +8,10 @@ class BaseRepository {
   async find(option = {}) {
     return this.Model.find(option);
   }
+  async findOne(option = {}) {
+    return this.Model.findOne(option).exec();
+  }
+
 
   async read() {
     return this.Model.find({});
