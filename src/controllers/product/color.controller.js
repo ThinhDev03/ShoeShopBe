@@ -52,6 +52,24 @@ export const update = async (req, res) => {
   }
 };
 
+// [GET] api/color/:id
+export const findOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await colorRepository.findById(id);
+
+    const response = {
+      data,
+      message: "Lấy màu thành công.",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
 // [DELETE] api/color/remove/:id
 export const remove = async (req, res) => {
   try {
