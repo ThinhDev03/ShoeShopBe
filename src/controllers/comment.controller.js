@@ -26,6 +26,7 @@ export const getByUserId = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
+
 };
 // [POST] api/comment/:id
 
@@ -43,6 +44,7 @@ export const create = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
+
 };
 
 // [POST] api/comment/:id
@@ -62,7 +64,6 @@ export const update = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
-
 };
 
 // [DELETE] api/comment/remove/:id
@@ -81,5 +82,6 @@ export const remove = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
+
 
 };

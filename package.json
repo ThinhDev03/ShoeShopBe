@@ -17,7 +17,7 @@
     "@babel/core": "^7.19.6",
     "@babel/node": "^7.20.0",
     "@babel/preset-env": "^7.19.4",
-    "nodemon": "^2.0.20",
+    "nodemon": "^3.0.1",
     "webpack-cli": "^5.1.4"
   },
   "dependencies": {
@@ -30,7 +30,7 @@
     "firebase": "^9.14.0",
     "firebase-admin": "^11.3.0",
     "joi": "^17.7.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.2",
     "mongoose": "^6.7.2",
     "mongoose-autopopulate": "^0.17.1",
     "morgan": "^1.10.0",
@@ -38,7 +38,7 @@
     "multer-storage-cloudinary": "^4.0.0",
     "swagger-jsdoc": "^6.2.5",
     "swagger-ui-express": "^4.6.0",
-    "vercel": "^31.0.1",
+    "vercel": "^32.3.0",
     "webp-converter": "^2.3.3"
   }
 }

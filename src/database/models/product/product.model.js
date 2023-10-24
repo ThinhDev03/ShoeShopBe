@@ -24,6 +24,7 @@ const ProductSchema = new Schema(
     thumbnail: {
       type: String,
     },
+
   },
   {
     timestamps: true,
