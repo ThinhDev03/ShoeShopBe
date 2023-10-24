@@ -11,7 +11,9 @@ export const read = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || "";
-    const category = req.query.category ? { category_id: req.query.category } : {};
+    const category = req.query.category
+      ? { category_id: req.query.category }
+      : {};
     const perPage = limit * page - limit;
 
     const product = await productModel
@@ -55,11 +57,13 @@ export const create = async (req, res) => {
     const body = req.body;
     const { images, ...formBody } = body;
     const data = await productRepository.create(formBody);
-    const formImage = images.map((image_url) => ({
-      image_url,
-      product_id: data._id,
-    }));
-    await imageModel.insertMany(formImage);
+    if (images) {
+      const formImage = images.map((image_url) => ({
+        image_url,
+        product_id: data._id,
+      }));
+      await imageModel.insertMany(formImage);
+    }
 
     const response = {
       data,
@@ -105,7 +109,12 @@ export const getDetailById = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await productDetailModel.find({ product_id: id });
-
+    const minMax = await productDetailModel.collection.find({
+      max: { $max: "$price" },
+      min: { $min: "$price" },
+      product_id: id,
+    });
+    console.log(minMax);
     const response = {
       data,
       message: "Lấy danh sách ảnh thành công",
@@ -130,9 +139,9 @@ export const updateDetailById = async (req, res) => {
         },
       };
     });
-    const data = await productDetailModel.bulkWrite(bulkWriteOptions);
+    await productDetailModel.bulkWrite(bulkWriteOptions);
     const response = {
-      data,
+      data: null,
       message: "Cập nhật sản phẩm thành công",
     };
 

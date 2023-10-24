@@ -2,6 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import mongooseAutoPopulate from "mongoose-autopopulate";
 
 const BillSchema = new Schema(
+
   {
     user_id: {
       type: mongoose.Types.ObjectId,
@@ -17,6 +18,7 @@ const BillSchema = new Schema(
       enum: ["PENDING", "PACKING", "TRANSPORT", "RECEIVED", "CANCELED"],
       required: true,
       default: "PENDING",
+
     },
     receiver: {
       type: String,
@@ -48,3 +50,4 @@ const BillSchema = new Schema(
 BillSchema.plugin(mongooseAutoPopulate);
 
 export default mongoose.model("bill", BillSchema);
+
