@@ -16,9 +16,10 @@ const checkAuth = async (req, res, next) => {
       // expiresIn: 10,
     });
     existUser.password = "";
+    const { password: _, ...userInfo } = existUser._doc;
     return res
       .status(200)
-      .json({ message: "Login success", token, user: existUser });
+      .json({ message: "Login success", token, user: userInfo });
   } catch (error) {
     return res.status(400).json({ message: "Login faileds", error });
   }
