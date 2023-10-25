@@ -3,7 +3,7 @@ import productDetailModel from "../database/models/product/product-detail.model"
 import { responseError, responseSuccess } from "../helpers/response";
 import billDetailRepository from "../repositories/bill-detail.repository";
 import billRepository from "../repositories/bill.repository";
-import productRepository from "../repositories/product/product.repository";
+import cartRepository from "../repositories/cart.repository";
 
 // [GET] api/bill
 export const read = async (req, res) => {
@@ -70,10 +70,10 @@ export const create = async (req, res) => {
     const body = req.body;
     const { products, ...formBody } = body;
     const data = await billRepository.create(formBody);
-    const billDetails = products.map((product) => ({
-      bill_id: data.id,
-      ...product,
-    }));
+    const billDetails = products.map(async ({ cart_id, ...product }) => {
+      await cartRepository.delete(cart_id);
+      return { bill_id: data.id, ...product };
+    });
     await billDetailRepository.saveMultiple(billDetails);
     const response = {
       data,
@@ -101,9 +101,15 @@ export const update = async (req, res) => {
     // if received subtraction quantity in product detail
     if (formBody.status === "RECEIVED") {
       products.forEach(async (product) => {
-        const currentProduct = await productRepository.findById(product.id);
+        const currentProduct = await productDetailModel.findById(
+          product.product_id
+        );
         const quantity = currentProduct.quantity - product.quantity;
-        await productRepository.update(product.id, { quantity });
+        await productDetailModel.findByIdAndUpdate(
+          product.product_id,
+          { quantity },
+          { new: true }
+        );
       });
     }
     await billDetailRepository.saveMultiple(billDetails);
