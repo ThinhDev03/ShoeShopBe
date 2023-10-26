@@ -11,7 +11,6 @@ const ProductSchema = new Schema(
       type: mongoose.Types.ObjectId,
       ref: "product",
       autopopulate: { select: "name" },
-      required: true,
     },
     size_id: {
       type: mongoose.Types.ObjectId,
@@ -22,7 +21,7 @@ const ProductSchema = new Schema(
     color_id: {
       type: mongoose.Types.ObjectId,
       ref: "color",
-      autopopulate: { select: "color_name" },
+      autopopulate: { select: "color_name color_code" },
       required: true,
     },
     image_id: {
