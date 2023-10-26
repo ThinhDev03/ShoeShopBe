@@ -4,8 +4,6 @@ dotenv.config();
 
 //require database URL from properties file
 const DB_URL = `mongodb://127.0.0.1:27017/shoeShop`;
-// const DB_URL =
-//   "mongodb+srv://phamtuan19hd:phamtuan19hd@shoeshopee.jy326ur.mongodb.net/?retryWrites=true&w=majority";
 
 //export this function and imported by server.js
 export const connectMongoDB = () => {
