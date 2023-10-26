@@ -1,17 +1,35 @@
 import billDetailModel from "../database/models/bill-detail.model";
+import billModel from "../database/models/bill.model";
 import productDetailModel from "../database/models/product/product-detail.model";
 import { responseError, responseSuccess } from "../helpers/response";
 import billDetailRepository from "../repositories/bill-detail.repository";
 import billRepository from "../repositories/bill.repository";
 import cartRepository from "../repositories/cart.repository";
+import paymentRepository from "../repositories/payment.repository";
 
 // [GET] api/bill
 export const read = async (req, res) => {
   try {
-    const data = await billRepository.read();
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const perPage = limit * page - limit;
+
+    const bill = await billModel
+      .find({
+        receiver: { $regex: search, $options: "i" },
+      })
+      .skip(perPage)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+    const total = await billRepository.totalRecord(search);
+    const totalPage = Math.ceil(total / limit);
 
     const response = {
-      data,
+      data: bill,
+      total,
+      totalPage,
+      currentPage: page,
       message: "Lấy danh sách bill thành công",
     };
 
@@ -68,8 +86,19 @@ export const getBillDetailById = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const { products, ...formBody } = body;
+    const { products, payment_method, ...restBody } = body;
+
+    const payment = await paymentRepository.create({
+      status: "UNPAID",
+      payment_method: payment_method,
+    });
+
+    const formBody = {
+      payment_id: payment._id,
+      ...restBody,
+    };
     const data = await billRepository.create(formBody);
+
     const billDetails = products.map(async ({ cart_id, ...product }) => {
       await cartRepository.delete(cart_id);
       return { bill_id: data.id, ...product };
@@ -116,23 +145,6 @@ export const update = async (req, res) => {
     const response = {
       data,
       message: "Cập nhật bill thành công",
-    };
-
-    return responseSuccess(res, response);
-  } catch (error) {
-    return responseError(res, error);
-  }
-};
-
-// [DELETE] api/bill/remove/:id
-export const remove = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const data = await billRepository.delete(id);
-
-    const response = {
-      data,
-      message: "Xóa bill thành công",
     };
 
     return responseSuccess(res, response);
