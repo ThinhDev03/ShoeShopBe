@@ -5,10 +5,12 @@ const PaymentSchema = new Schema(
   {
     status: {
       type: String,
+      enum: ["PAID", "UNPAID"],
       required: true,
     },
     payment_method: {
       type: String,
+      enum: ["PAYMENT_ON_DELIVEY", "PAYMENT_IN_ADVANCE"],
       required: true,
     },
   },

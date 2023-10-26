@@ -1,6 +1,7 @@
 import billRoute from "./bill.route";
 import cartRoute from "./cart.route";
 import commentRoute from "./comment.route";
+import paymentRoute from "./payment.route";
 
 const commonRoutes = {
   prefix: "/",
@@ -16,6 +17,10 @@ const commonRoutes = {
     {
       path: "bill",
       route: billRoute,
+    },
+    {
+      path: "payment",
+      route: paymentRoute,
     },
   ],
 

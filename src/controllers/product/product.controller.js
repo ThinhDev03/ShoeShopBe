@@ -31,6 +31,7 @@ export const read = async (req, res) => {
       total,
       totalPage,
       currentPage: page,
+      message: "Lấy danh sách sản phẩm thành công",
     });
   } catch (error) {
     return responseError(res, error);
