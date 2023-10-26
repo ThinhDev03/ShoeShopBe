@@ -52,6 +52,24 @@ export const update = async (req, res) => {
   }
 };
 
+// [GET] api/size/:id
+export const findOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await sizeRepository.findById(id);
+
+    const response = {
+      data,
+      message: "Lấy kích thước thành công.",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
 // [DELETE] api/admin/answer/remove/:id
 export const remove = async (req, res) => {
   try {

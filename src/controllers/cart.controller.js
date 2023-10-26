@@ -15,6 +15,7 @@ export const getByUserId = async (req, res) => {
         name: product.product_id.product_id.name,
         price: product.product_id.price,
         quantity: product.quantity,
+        totalQuantity: product.product_id.quantity,
         image: product.product_id.image_id.image_url,
         color: product.product_id.color_id.color_name,
         size: product.product_id.size_id.size_name,

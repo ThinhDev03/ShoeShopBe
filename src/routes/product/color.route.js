@@ -6,5 +6,6 @@ colorRoute.post("/create", colorController.create);
 colorRoute.post("/update/:id", colorController.update);
 colorRoute.delete("/remove/:id", colorController.remove);
 colorRoute.get("/", colorController.read);
+colorRoute.get("/:id", colorController.findOne);
 
 export default colorRoute;
