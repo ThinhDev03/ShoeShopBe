@@ -24,7 +24,12 @@ const ProductSchema = new Schema(
     thumbnail: {
       type: String,
     },
-
+    fromPrice: {
+      type: String,
+    },
+    toPrice: {
+      type: String,
+    },
   },
   {
     timestamps: true,

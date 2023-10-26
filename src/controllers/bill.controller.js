@@ -3,6 +3,7 @@ import productDetailModel from "../database/models/product/product-detail.model"
 import { responseError, responseSuccess } from "../helpers/response";
 import billDetailRepository from "../repositories/bill-detail.repository";
 import billRepository from "../repositories/bill.repository";
+import cartRepository from "../repositories/cart.repository";
 
 // [GET] api/bill
 export const read = async (req, res) => {
@@ -36,31 +37,31 @@ export const getByUserId = async (req, res) => {
 };
 
 export const getBillDetailById = async (req, res) => {
-    try {
-        const { id } = req.params;
-        const data = await billDetailModel.find({
-            bill_id: id,
-        });
-        const flatData = data.map((order) => ({
-            _id: order._id,
-            bill_id: order.bill_id._id,
-            createdAt: order.createdAt,
-            productDetail_id: order.product_id.product_id._id,
-            product_name: order.product_id.product_id.name,
-            price: order.product_id.price,
-            size: order.product_id.size_id.size_name,
-            color: order.product_id.color_id.color_name,
-            image: order.product_id.image_id.image_url,
-            quantity: order.quantity,
-        }));
-        const response = {
-            data: flatData,
-            message: "Lấy danh sách bill thành công",
-        };
-        return responseSuccess(res, response);
-    } catch (error) {
-        return responseError(res, error);
-    }
+  try {
+    const { id } = req.params;
+    const data = await billDetailModel.find({
+      bill_id: id,
+    });
+    const flatData = data.map((order) => ({
+      _id: order._id,
+      bill_id: order.bill_id._id,
+      createdAt: order.createdAt,
+      productDetail_id: order.product_id.product_id._id,
+      product_name: order.product_id.product_id.name,
+      price: order.product_id.price,
+      size: order.product_id.size_id.size_name,
+      color: order.product_id.color_id.color_name,
+      image: order.product_id.image_id.image_url,
+      quantity: order.quantity,
+    }));
+    const response = {
+      data: flatData,
+      message: "Lấy danh sách bill thành công",
+    };
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
 };
 
 // [POST] api/bill/create
@@ -69,10 +70,10 @@ export const create = async (req, res) => {
     const body = req.body;
     const { products, ...formBody } = body;
     const data = await billRepository.create(formBody);
-    const billDetails = products.map((product) => ({
-      bill_id: data.id,
-      ...product,
-    }));
+    const billDetails = products.map(async ({ cart_id, ...product }) => {
+      await cartRepository.delete(cart_id);
+      return { bill_id: data.id, ...product };
+    });
     await billDetailRepository.saveMultiple(billDetails);
     const response = {
       data,
@@ -83,7 +84,6 @@ export const create = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
-
 };
 
 // [POST] api/bill/update/:id
@@ -101,7 +101,15 @@ export const update = async (req, res) => {
     // if received subtraction quantity in product detail
     if (formBody.status === "RECEIVED") {
       products.forEach(async (product) => {
-  
+        const currentProduct = await productDetailModel.findById(
+          product.product_id
+        );
+        const quantity = currentProduct.quantity - product.quantity;
+        await productDetailModel.findByIdAndUpdate(
+          product.product_id,
+          { quantity },
+          { new: true }
+        );
       });
     }
     await billDetailRepository.saveMultiple(billDetails);
@@ -114,7 +122,6 @@ export const update = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
-
 };
 
 // [DELETE] api/bill/remove/:id
