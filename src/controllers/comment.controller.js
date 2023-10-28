@@ -2,18 +2,17 @@ import { responseError, responseSuccess } from "../helpers/response";
 import commentRepository from "../repositories/comment.repository";
 
 // [GET] api/comment
-export const getByUserId = async (req, res) => {
+export const getByProductId = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await commentRepository.find({ user_id: id });
+    const data = await commentRepository.find({ product_id: id });
     const newData = data.map((comment) => {
       return {
         _id: comment._id,
         user_name: comment.user_id.fullname,
         description: comment.description,
         rate: comment.rate,
-        product_name: comment.product_id.name,
         createdAt: comment.createdAt,
       };
     });
@@ -26,7 +25,6 @@ export const getByUserId = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
-
 };
 // [POST] api/comment/:id
 
@@ -44,12 +42,10 @@ export const create = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
-
 };
 
 // [POST] api/comment/:id
 export const update = async (req, res) => {
-
   try {
     const body = req.body;
     const { id } = req.params;
@@ -68,7 +64,6 @@ export const update = async (req, res) => {
 
 // [DELETE] api/comment/remove/:id
 export const remove = async (req, res) => {
-
   try {
     const { id } = req.params;
     const data = await commentRepository.delete(id);
@@ -82,6 +77,4 @@ export const remove = async (req, res) => {
   } catch (error) {
     return responseError(res, error);
   }
-
-
 };

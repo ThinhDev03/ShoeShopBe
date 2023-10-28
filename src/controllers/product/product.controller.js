@@ -31,6 +31,7 @@ export const read = async (req, res) => {
       total,
       totalPage,
       currentPage: page,
+      message: "Lấy danh sách sản phẩm thành công",
     });
   } catch (error) {
     return responseError(res, error);
@@ -79,7 +80,18 @@ export const create = async (req, res) => {
 export const createDetail = async (req, res) => {
   try {
     const body = req.body;
+
     const data = await productDetailModel.insertMany(body);
+    const product_id = body[0].product_id;
+    const listDetail = await productDetailModel.find({
+      product_id,
+    });
+
+    listDetail.sort((a, b) => a.price - b.price);
+    const fromPrice = listDetail[0].price;
+    const toPrice = listDetail[listDetail.length - 1].price;
+
+    await productRepository.update(product_id, { fromPrice, toPrice });
     const response = {
       data,
       message: "Tạo sản phẩm thành công",
@@ -109,12 +121,7 @@ export const getDetailById = async (req, res) => {
   try {
     const { id } = req.params;
     const data = await productDetailModel.find({ product_id: id });
-    const minMax = await productDetailModel.collection.find({
-      max: { $max: "$price" },
-      min: { $min: "$price" },
-      product_id: id,
-    });
-    console.log(minMax);
+
     const response = {
       data,
       message: "Lấy danh sách ảnh thành công",

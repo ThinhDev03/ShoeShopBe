@@ -4,7 +4,6 @@ const billRoute = express.Router();
 
 billRoute.post("/create", billController.create);
 billRoute.post("/update/:id", billController.update);
-billRoute.delete("/remove/:id", billController.remove);
 billRoute.get("/", billController.read);
 billRoute.get("/:id", billController.getByUserId);
 billRoute.get("/bill-detail/:id", billController.getBillDetailById);

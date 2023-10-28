@@ -1,0 +1,817 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "shoeShop",
+    "dateExported": "2023-10-26T15:00:04.925Z",
+    "version": "1.1",
+    "folders": [
+        {
+            "_id": "519289f1-a578-4c24-84ab-b59a66b23c7c",
+            "name": "product",
+            "containerId": "",
+            "created": "2023-10-24T11:29:26.096Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "d182e0fe-774d-47e5-9faa-f0bb486e01b9",
+            "name": "product-detail",
+            "containerId": "",
+            "created": "2023-10-24T12:19:36.004Z",
+            "sortNum": 12500
+        },
+        {
+            "_id": "a5d997b8-2a6c-4ed6-bf97-e0fc339b8a02",
+            "name": "brand",
+            "containerId": "",
+            "created": "2023-10-24T11:51:00.388Z",
+            "sortNum": 15000
+        },
+        {
+            "_id": "86d46584-5acf-4c6a-8c54-2797ec9968b4",
+            "name": "size",
+            "containerId": "",
+            "created": "2023-10-24T11:55:07.268Z",
+            "sortNum": 17500
+        },
+        {
+            "_id": "76396021-8719-4930-928e-b38303d35f03",
+            "name": "color",
+            "containerId": "",
+            "created": "2023-10-24T12:00:56.515Z",
+            "sortNum": 18750
+        },
+        {
+            "_id": "5a002636-f704-40ca-ad82-3639f3e7b2be",
+            "name": "auth",
+            "containerId": "",
+            "created": "2023-10-24T11:29:47.038Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "290d37b6-d8a2-4b8e-9f87-1945ed90c072",
+            "name": "category",
+            "containerId": "",
+            "created": "2023-10-24T11:30:36.795Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "0f7c24d7-5d0d-4841-861e-f50f3ac2a091",
+            "name": "cart",
+            "containerId": "",
+            "created": "2023-10-24T15:19:45.711Z",
+            "sortNum": 110000
+        },
+        {
+            "_id": "8d2e0237-b464-414c-b011-429bf737c6eb",
+            "name": "bill",
+            "containerId": "",
+            "created": "2023-10-24T15:45:24.930Z",
+            "sortNum": 120000
+        },
+        {
+            "_id": "6be82546-986a-4581-8746-adb6d7ae6210",
+            "name": "comment",
+            "containerId": "",
+            "created": "2023-10-26T14:45:13.414Z",
+            "sortNum": 130000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "800ad638-bff8-4912-9252-2ce2accdfec1",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "5a002636-f704-40ca-ad82-3639f3e7b2be",
+            "name": "login",
+            "url": "localhost:5001/api/auth/login",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-24T11:29:54.254Z",
+            "modified": "2023-10-25T16:33:32.856Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsiYWRkcmVzcyI6ImluaXQiLCJmdWxsbmFtZSI6ImluaXQiLCJ1c2VybmFtZSI6ImluaXQiLCJwYXNzd29yZCI6ImluaXQiLCJlbWFpbCI6ImluaXQiLCJyb2xlIjoiaW5pdCIsIl9pZCI6ImluaXQiLCJwaG9uZSI6ImluaXQiLCJjcmVhdGVkQXQiOiJpbml0IiwidXBkYXRlZEF0IjoiaW5pdCIsIl9fdiI6ImluaXQifSwic3RhdGVzIjp7InJlcXVpcmUiOnt9LCJkZWZhdWx0Ijp7fSwiaW5pdCI6eyJfaWQiOnRydWUsImVtYWlsIjp0cnVlLCJwYXNzd29yZCI6dHJ1ZSwidXNlcm5hbWUiOnRydWUsImZ1bGxuYW1lIjp0cnVlLCJhZGRyZXNzIjp0cnVlLCJyb2xlIjp0cnVlLCJwaG9uZSI6dHJ1ZSwiY3JlYXRlZEF0Ijp0cnVlLCJ1cGRhdGVkQXQiOnRydWUsIl9fdiI6dHJ1ZX19fSwic2tpcElkIjp0cnVlfSwiJGlzTmV3IjpmYWxzZSwiX2RvYyI6eyJfaWQiOiI2NTM3ZDBlMTMyZDcyZDYyNWE0MjlmOWUiLCJlbWFpbCI6InRoaW5obmgxMjJAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkWkNzam1vOUxZOU9GUnlhSy9ucm82T3daR2lqWnRWM3U2cjRtM2s4Yi5iaDBEMXZsMDA0WHkiLCJ1c2VybmFtZSI6InRoaW5oIiwiZnVsbG5hbWUiOiJOZ3V5ZW4gVGhpbmgiLCJhZGRyZXNzIjoiaGEgbm9pIHZpZXQgbmFtbmFtIiwicm9sZSI6IlVTRVIiLCJwaG9uZSI6IjA5ODI5Njc2NDQiLCJjcmVhdGVkQXQiOiIyMDIzLTEwLTI0VDE0OjEyOjQ5LjAwNFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTEwLTI0VDE0OjEyOjQ5LjAwNFoiLCJfX3YiOjB9LCJpYXQiOjE2OTgyNTE1Nzl9.DXdPHT5BSEtIXoK9b5L_uQ_9TFzUpqBSGWLANiozq8s"
+                }
+            ],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"username\":\"thinh\",\n  \"password\":\"123\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ab3fec3f-ba90-44f7-8160-3388dc0dc80a",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "5a002636-f704-40ca-ad82-3639f3e7b2be",
+            "name": "register",
+            "url": "localhost:5001/api/auth/register",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-10-24T11:30:12.428Z",
+            "modified": "2023-10-24T14:12:49.402Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"thinhnh122@gmail.com\",\n  \"username\": \"thinh\",\n  \"password\": \"123\",\n  \"phone\": \"0982967644\",\n  \"fullname\": \"Nguyen Thinh\",\n  \"address\": \"ha noi viet namnam\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "1e7b583c-71d2-4c3e-a050-df1c74be0cf8",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "519289f1-a578-4c24-84ab-b59a66b23c7c",
+            "name": "create",
+            "url": "localhost:5001/api/product/create",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-10-24T11:44:26.901Z",
+            "modified": "2023-10-24T14:10:32.019Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Nike Air Force 3\",\n  \"description\": \"description\",\n  \"brand_id\": \"6537b02b9d10477238d21b50\",\n  \"category_id\": \"6537af2b9d10477238d21b4a\",\n  \"thumbnail\": \"thumbnail\",\n  \"images\": [\n    \"link 1\"\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "caee75bc-cf2e-4555-b9d9-f2a675acda97",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "a5d997b8-2a6c-4ed6-bf97-e0fc339b8a02",
+            "name": "create",
+            "url": "localhost:5001/api/brand/create",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-10-24T11:51:00.388Z",
+            "modified": "2023-10-24T11:53:16.195Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"brand_name\": \"Nike\",\n  \"origin\": \"Franch\",\n  \"description\": \"nike descrption\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f156f1c4-86c5-4206-bf94-05e54099fbb7",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "86d46584-5acf-4c6a-8c54-2797ec9968b4",
+            "name": "create",
+            "url": "localhost:5001/api/size/create",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-10-24T11:55:07.268Z",
+            "modified": "2023-10-24T11:55:47.625Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"size_name\": 40,\n  \"description\": \"size descrption\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0e6c95dc-139d-486d-8a49-7089bf6abd98",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "76396021-8719-4930-928e-b38303d35f03",
+            "name": "create",
+            "url": "localhost:5001/api/color/create",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-10-24T12:00:56.515Z",
+            "modified": "2023-10-24T12:01:58.282Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"color_name\": \"red\",\n  \"color_code\": \"#fff\",\n  \"description\": \"size descrption\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0e8d274f-15a4-45a2-a816-94bd4cd37877",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "d182e0fe-774d-47e5-9faa-f0bb486e01b9",
+            "name": "create",
+            "url": "localhost:5001/api/product/create-detail",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-10-24T12:19:36.004Z",
+            "modified": "2023-10-24T15:36:35.987Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"product_id\": \"6537d05732d72d625a429f8c\",\n    \"quantity\": 10,\n    \"size_id\": \"652aa337f45e2cb4bead887b\",\n    \"color_id\": \"652aa322f45e2cb4bead8879\",\n    \"image_id\": \"6537c62882984271cd5f3159\",\n    \"price\": \"10000\",\n    \"sale\": 10\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "23c5d6f3-b30e-4c58-aa3f-268ecdc3b4e0",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "290d37b6-d8a2-4b8e-9f87-1945ed90c072",
+            "name": "create",
+            "url": "localhost:5001/api/category/create",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-10-24T11:44:39.849Z",
+            "modified": "2023-10-24T11:49:00.266Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"category_name\": \"Giày thể thao\",\n  \"description\": \"Loại giày cho các hoạt động thể thao\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "45e7830f-c71e-43cf-9e73-81c25218f68e",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "290d37b6-d8a2-4b8e-9f87-1945ed90c072",
+            "name": "get",
+            "url": "localhost:5001/api/category",
+            "method": "GET",
+            "sortNum": 60000,
+            "created": "2023-10-24T11:44:47.218Z",
+            "modified": "2023-10-24T11:49:13.636Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "20e94155-c4f9-4db1-98ab-79292326f330",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "290d37b6-d8a2-4b8e-9f87-1945ed90c072",
+            "name": "getOne",
+            "url": "localhost:5001/api/category/6537af2b9d10477238d21b4a",
+            "method": "GET",
+            "sortNum": 70000,
+            "created": "2023-10-24T11:44:59.682Z",
+            "modified": "2023-10-24T11:49:43.847Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "cbb6533d-c607-46e8-95d7-175fa390efcc",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "290d37b6-d8a2-4b8e-9f87-1945ed90c072",
+            "name": "update",
+            "url": "localhost:5001/api/category/update/6537af2b9d10477238d21b4a",
+            "method": "POST",
+            "sortNum": 80000,
+            "created": "2023-10-24T11:45:39.638Z",
+            "modified": "2023-10-24T11:50:38.466Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"category_name\": \"Giày thể thao upup\",\n  \"description\": \"Loại giày cho các hoạt động thể thao\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "01456b5e-057e-4c31-8db1-2a8c441e6a33",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "a5d997b8-2a6c-4ed6-bf97-e0fc339b8a02",
+            "name": "get",
+            "url": "localhost:5001/api/brand",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-10-24T11:53:30.992Z",
+            "modified": "2023-10-24T11:53:38.502Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "729ce085-af0e-4549-8748-987f812dbb6e",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "86d46584-5acf-4c6a-8c54-2797ec9968b4",
+            "name": "get",
+            "url": "localhost:5001/api/size",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-10-24T11:55:07.269Z",
+            "modified": "2023-10-24T11:56:19.507Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3311ac10-8859-4429-9035-f3b795647a94",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "76396021-8719-4930-928e-b38303d35f03",
+            "name": "get",
+            "url": "localhost:5001/api/color",
+            "method": "GET",
+            "sortNum": 90000,
+            "created": "2023-10-24T12:00:56.516Z",
+            "modified": "2023-10-24T12:02:10.175Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "157faa3e-0300-4600-b115-5e295faeab29",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "a5d997b8-2a6c-4ed6-bf97-e0fc339b8a02",
+            "name": "getOne",
+            "url": "localhost:5001/api/brand/:id",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2023-10-24T11:53:50.856Z",
+            "modified": "2023-10-24T11:56:40.938Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "48cdf3b4-5faa-43c2-a09b-6ca81921763e",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "86d46584-5acf-4c6a-8c54-2797ec9968b4",
+            "name": "getOne",
+            "url": "localhost:5001/api/size/:id",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2023-10-24T11:55:07.270Z",
+            "modified": "2023-10-24T11:56:33.396Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c92319fc-bd6b-4b20-b40e-b29613ca17ed",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "76396021-8719-4930-928e-b38303d35f03",
+            "name": "getOne",
+            "url": "localhost:5001/api/color/652aa322f45e2cb4bead8879",
+            "method": "GET",
+            "sortNum": 100000,
+            "created": "2023-10-24T12:00:56.517Z",
+            "modified": "2023-10-24T14:08:50.097Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a79d98c9-e60f-447f-9896-911579858ffd",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "a5d997b8-2a6c-4ed6-bf97-e0fc339b8a02",
+            "name": "update",
+            "url": "localhost:5001/api/category/update/:id",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2023-10-24T11:54:11.260Z",
+            "modified": "2023-10-24T11:54:43.933Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"brand_name\": \"Nike Update\",\n  \"origin\": \"Franch\",\n  \"description\": \"nike descrption\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fc828631-e344-49f9-9938-ed29b8a4543a",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "86d46584-5acf-4c6a-8c54-2797ec9968b4",
+            "name": "update",
+            "url": "localhost:5001/api/category/update/:id",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2023-10-24T11:55:07.271Z",
+            "modified": "2023-10-24T12:03:32.920Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"size_name\": 41,\n  \"description\": \"nike descrption\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9244f4f5-5292-4c3c-9575-7274345e841f",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "76396021-8719-4930-928e-b38303d35f03",
+            "name": "update",
+            "url": "localhost:5001/api/category/update/:id",
+            "method": "POST",
+            "sortNum": 110000,
+            "created": "2023-10-24T12:00:56.518Z",
+            "modified": "2023-10-24T12:00:56.515Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"brand_name\": \"Nike Update\",\n  \"origin\": \"Franch\",\n  \"description\": \"nike descrption\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b111ef90-9d71-4f8c-b998-9f13832273f1",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "a5d997b8-2a6c-4ed6-bf97-e0fc339b8a02",
+            "name": "delete",
+            "url": "localhost:5001/api/brand/remove/6537b02b9d10477238d21b50",
+            "method": "DELETE",
+            "sortNum": 120000,
+            "created": "2023-10-24T11:57:30.372Z",
+            "modified": "2023-10-24T11:58:53.861Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5a6d57ef-e4b6-4956-88ef-c30e02d1cbb5",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "86d46584-5acf-4c6a-8c54-2797ec9968b4",
+            "name": "delete",
+            "url": "localhost:5001/api/size/remove/:id",
+            "method": "DELETE",
+            "sortNum": 130000,
+            "created": "2023-10-24T11:59:14.320Z",
+            "modified": "2023-10-24T11:59:34.373Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ddb99122-7220-4414-9fdd-1d584a31951c",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "76396021-8719-4930-928e-b38303d35f03",
+            "name": "delete",
+            "url": "localhost:5001/api/color/remove/:id",
+            "method": "DELETE",
+            "sortNum": 130000,
+            "created": "2023-10-24T12:00:56.519Z",
+            "modified": "2023-10-24T12:02:52.488Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7e3a41e1-d746-4f68-a7df-4a0ae4d54727",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "290d37b6-d8a2-4b8e-9f87-1945ed90c072",
+            "name": "delete",
+            "url": "localhost:5001/api/category/remove/:id",
+            "method": "DELETE",
+            "sortNum": 140000,
+            "created": "2023-10-24T11:59:54.890Z",
+            "modified": "2023-10-24T12:00:07.226Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "82825d82-2947-4b67-8d54-710337c17d1f",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "519289f1-a578-4c24-84ab-b59a66b23c7c",
+            "name": "update",
+            "url": "localhost:5001/api/product/update/:id",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2023-10-24T12:12:06.447Z",
+            "modified": "2023-10-24T12:16:40.230Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\": \"Nike Air Force 2\",\n  \"description\": \"description\",\n  \"brand_id\": \"get id from brand table\",\n  \"category_id\": \"get id from category table\",\n  \"thumbnail\": \"thumbnail\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9562214c-82ec-44f3-b2dd-621ade25ac4f",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "d182e0fe-774d-47e5-9faa-f0bb486e01b9",
+            "name": "update",
+            "url": "localhost:5001/api/product/update-detail",
+            "method": "POST",
+            "sortNum": 150000,
+            "created": "2023-10-24T12:19:36.005Z",
+            "modified": "2023-10-24T13:30:45.073Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "[\n  {\n    \"product_id\": \"6537c62582984271cd5f3155\",\n    \"quantity\": 200,\n    \"size_id\": \"652aa337f45e2cb4bead887b\",\n    \"color_id\": \"652aa322f45e2cb4bead8879\",\n    \"image_id\": \"6537c62882984271cd5f3159\",\n    \"price\": \"600000\",\n    \"sale\": 20\n  },\n  {\n    \"product_id\": \"6537c62582984271cd5f3155\",\n    \"quantity\": 500,\n    \"size_id\": \"652aa337f45e2cb4bead887b\",\n    \"color_id\": \"652aa322f45e2cb4bead8879\",\n    \"image_id\": \"6537c62882984271cd5f3159\",\n    \"price\": \"700000\",\n    \"sale\": 20\n  }\n]",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "15797b2a-44af-4eeb-bd84-c1a765b23168",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "519289f1-a578-4c24-84ab-b59a66b23c7c",
+            "name": "get",
+            "url": "localhost:5001/api/product",
+            "method": "GET",
+            "sortNum": 160000,
+            "created": "2023-10-24T12:16:54.867Z",
+            "modified": "2023-10-24T12:17:04.598Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "e7d45345-e385-4806-866b-9be93eee421e",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "519289f1-a578-4c24-84ab-b59a66b23c7c",
+            "name": "getOne",
+            "url": "localhost:5001/api/product/6537b4034412913c5beb7eab",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-10-24T12:18:19.286Z",
+            "modified": "2023-10-24T12:18:40.301Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c8a816ee-67f1-4c66-b5b8-f579706e012c",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "d182e0fe-774d-47e5-9faa-f0bb486e01b9",
+            "name": "getOne",
+            "url": "localhost:5001/api/product/detail/6537d05732d72d625a429f8c",
+            "method": "GET",
+            "sortNum": 170000,
+            "created": "2023-10-24T12:19:36.007Z",
+            "modified": "2023-10-24T14:12:13.098Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c6b28d34-ca36-4e21-b676-d15a7cf9a1c9",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "d182e0fe-774d-47e5-9faa-f0bb486e01b9",
+            "name": "get-image",
+            "url": "localhost:5001/api/product/images/6537d05732d72d625a429f8c",
+            "method": "GET",
+            "sortNum": 180000,
+            "created": "2023-10-24T13:27:37.348Z",
+            "modified": "2023-10-24T14:10:52.395Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f82a05a2-cc46-41e2-87f0-b598f9b11703",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "0f7c24d7-5d0d-4841-861e-f50f3ac2a091",
+            "name": "create",
+            "url": "localhost:5001/api/cart/create",
+            "method": "POST",
+            "sortNum": 190000,
+            "created": "2023-10-24T15:19:51.717Z",
+            "modified": "2023-10-24T15:20:19.948Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"product_id\": \"6537d0ac32d72d625a429f93\",\n  \"user_id\": \"6537d0e132d72d625a429f9e\",\n  \"quantity\": 22\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a395ac09-8465-4003-a303-69a3df17bc8e",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "8d2e0237-b464-414c-b011-429bf737c6eb",
+            "name": "create",
+            "url": "localhost:5001/api/bill/create",
+            "method": "POST",
+            "sortNum": 200000,
+            "created": "2023-10-24T15:45:38.582Z",
+            "modified": "2023-10-26T14:22:20.116Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"user_id\": \"652ab2e4ca43c731d6546ca6\",\n  \"address\": \"nam sach\",\n  \"receiver\": \"Nguyen An payment\",\n  \"phone_number\": \"0982888333\",\n  \"note\": \"giao hang dung gio\",\n  \"total_money\": 200000,\n  \"payment_method\": \"PAYMENT_ON_DELIVEY\",\n  \"products\": [\n    {\n      \"cart_id\": \"652c04464c8c0b708ee2778a\",\n      \"product_id\": \"652bf6b6451c4c4bad462e05\",\n      \"quantity\": 2\n    }\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4a00c468-5d32-4698-9617-f6a0889fa473",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "8d2e0237-b464-414c-b011-429bf737c6eb",
+            "name": "update",
+            "url": "localhost:5001/api/bill/update/6537e897f1db20980d77c9de",
+            "method": "POST",
+            "sortNum": 210000,
+            "created": "2023-10-24T15:54:21.703Z",
+            "modified": "2023-10-25T15:21:04.036Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"user_id\": \"652ab1a6df2818f46da7277c\",\n  \"address\": \"ha noi\",\n  \"receiver\": \"Nguyen Thinh\",\n  \"status\": \"RECEIVED\",\n  \"phone_number\": \"0982888333\",\n  \"note\": \"giao hang dung gio\",\n  \"total_money\": 200000,\n  \"products\": [\n    {\n      \"product_id\": \"652bf6b6451c4c4bad462e05\",\n      \"quantity\": 1\n    },\n    {\n      \"product_id\": \"652bf6b6451c4c4bad462e06\",\n      \"quantity\": 1\n    }\n  ]\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "672b6092-5399-4e0d-9387-fa598f750ee6",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "8d2e0237-b464-414c-b011-429bf737c6eb",
+            "name": "get",
+            "url": "localhost:5001/api/bill?search=duong",
+            "method": "GET",
+            "sortNum": 220000,
+            "created": "2023-10-25T16:21:35.185Z",
+            "modified": "2023-10-26T14:38:29.939Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "search",
+                    "value": "duong",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "471c1067-bb43-43d1-b47a-b7b7c7aa0cd0",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "0f7c24d7-5d0d-4841-861e-f50f3ac2a091",
+            "name": "get",
+            "url": "localhost:5001/api/cart/652ab1a6df2818f46da7277c",
+            "method": "GET",
+            "sortNum": 230000,
+            "created": "2023-10-25T16:22:22.071Z",
+            "modified": "2023-10-25T16:23:09.211Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7e2dfddf-e703-4b6d-8212-afdde44f7b44",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "0f7c24d7-5d0d-4841-861e-f50f3ac2a091",
+            "name": "delete",
+            "url": "localhost:5001/api/cart/remove/652bf8fa92960d0233e90ee5",
+            "method": "DELETE",
+            "sortNum": 240000,
+            "created": "2023-10-25T16:24:21.963Z",
+            "modified": "2023-10-25T16:26:01.292Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "04196473-7acc-4d5b-80ad-d3d351426e0d",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "0f7c24d7-5d0d-4841-861e-f50f3ac2a091",
+            "name": "update",
+            "url": "localhost:5001/api/cart/update/652c04464c8c0b708ee2778a",
+            "method": "POST",
+            "sortNum": 250000,
+            "created": "2023-10-25T16:26:39.428Z",
+            "modified": "2023-10-25T16:31:02.612Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"product_id\": \"6537d0ac32d72d625a429f93\",\n  \"user_id\": \"652ab1a6df2818f46da7277c\",\n  \"quantity\": 2\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "76b9dd1e-7a45-4b57-a737-9ba4ce630ccc",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "5a002636-f704-40ca-ad82-3639f3e7b2be",
+            "name": "verify-token",
+            "url": "localhost:5001/api/auth/verify-token",
+            "method": "GET",
+            "sortNum": 260000,
+            "created": "2023-10-25T16:32:07.346Z",
+            "modified": "2023-10-25T16:33:56.857Z",
+            "headers": [
+                {
+                    "name": "Authorization",
+                    "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyIkX18iOnsiYWN0aXZlUGF0aHMiOnsicGF0aHMiOnsiYWRkcmVzcyI6ImluaXQiLCJmdWxsbmFtZSI6ImluaXQiLCJ1c2VybmFtZSI6ImluaXQiLCJwYXNzd29yZCI6ImluaXQiLCJlbWFpbCI6ImluaXQiLCJyb2xlIjoiaW5pdCIsIl9pZCI6ImluaXQiLCJwaG9uZSI6ImluaXQiLCJjcmVhdGVkQXQiOiJpbml0IiwidXBkYXRlZEF0IjoiaW5pdCIsIl9fdiI6ImluaXQifSwic3RhdGVzIjp7InJlcXVpcmUiOnt9LCJkZWZhdWx0Ijp7fSwiaW5pdCI6eyJfaWQiOnRydWUsImVtYWlsIjp0cnVlLCJwYXNzd29yZCI6dHJ1ZSwidXNlcm5hbWUiOnRydWUsImZ1bGxuYW1lIjp0cnVlLCJhZGRyZXNzIjp0cnVlLCJyb2xlIjp0cnVlLCJwaG9uZSI6dHJ1ZSwiY3JlYXRlZEF0Ijp0cnVlLCJ1cGRhdGVkQXQiOnRydWUsIl9fdiI6dHJ1ZX19fSwic2tpcElkIjp0cnVlfSwiJGlzTmV3IjpmYWxzZSwiX2RvYyI6eyJfaWQiOiI2NTM3ZDBlMTMyZDcyZDYyNWE0MjlmOWUiLCJlbWFpbCI6InRoaW5obmgxMjJAZ21haWwuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkWkNzam1vOUxZOU9GUnlhSy9ucm82T3daR2lqWnRWM3U2cjRtM2s4Yi5iaDBEMXZsMDA0WHkiLCJ1c2VybmFtZSI6InRoaW5oIiwiZnVsbG5hbWUiOiJOZ3V5ZW4gVGhpbmgiLCJhZGRyZXNzIjoiaGEgbm9pIHZpZXQgbmFtbmFtIiwicm9sZSI6IlVTRVIiLCJwaG9uZSI6IjA5ODI5Njc2NDQiLCJjcmVhdGVkQXQiOiIyMDIzLTEwLTI0VDE0OjEyOjQ5LjAwNFoiLCJ1cGRhdGVkQXQiOiIyMDIzLTEwLTI0VDE0OjEyOjQ5LjAwNFoiLCJfX3YiOjB9LCJpYXQiOjE2OTgyNTE1Nzl9.DXdPHT5BSEtIXoK9b5L_uQ_9TFzUpqBSGWLANiozq8s"
+                }
+            ],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2ee42e9c-4552-42ea-9502-e697cf22de77",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "8d2e0237-b464-414c-b011-429bf737c6eb",
+            "name": "get-detail",
+            "url": "localhost:5001/api/bill/bill-detail/652ab2e4ca43c731d6546ca6",
+            "method": "GET",
+            "sortNum": 270000,
+            "created": "2023-10-26T13:08:59.021Z",
+            "modified": "2023-10-26T13:13:45.105Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "ae21b200-6578-4e4f-9347-71e63bbf333e",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "8d2e0237-b464-414c-b011-429bf737c6eb",
+            "name": "get-by-user",
+            "url": "localhost:5001/api/bill/652ab2e4ca43c731d6546ca6",
+            "method": "GET",
+            "sortNum": 280000,
+            "created": "2023-10-26T14:33:20.143Z",
+            "modified": "2023-10-26T14:33:49.680Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6f2cb266-a503-41cb-ae29-88a3034268d6",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "5a002636-f704-40ca-ad82-3639f3e7b2be",
+            "name": "get",
+            "url": "localhost:5001/api/auth",
+            "method": "GET",
+            "sortNum": 300000,
+            "created": "2023-10-26T14:42:42.705Z",
+            "modified": "2023-10-26T14:42:52.763Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4a089dfa-3a6f-498f-ad1a-3f1dfc654682",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "6be82546-986a-4581-8746-adb6d7ae6210",
+            "name": "get-by-product",
+            "url": "http://localhost:5001/api/comment/6537d05732d72d625a429f8c",
+            "method": "GET",
+            "sortNum": 320000,
+            "created": "2023-10-26T14:45:21.344Z",
+            "modified": "2023-10-26T14:58:21.442Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "201c4931-2941-401d-912d-268000ed8868",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "6be82546-986a-4581-8746-adb6d7ae6210",
+            "name": "create",
+            "url": "http://localhost:5001/api/comment/create",
+            "method": "POST",
+            "sortNum": 330000,
+            "created": "2023-10-26T14:45:27.305Z",
+            "modified": "2023-10-26T14:56:54.612Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"user_id\": \"652ab1a6df2818f46da7277c\",\n  \"product_id\": \"652beee4451c4c4bad462dfe\",\n  \"description\": \"Sản phẩm đẹp vãi luôn\",\n  \"rate\": 5\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "ee748be9-2262-4e19-85bd-117050807742",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "6be82546-986a-4581-8746-adb6d7ae6210",
+            "name": "update",
+            "url": "",
+            "method": "GET",
+            "sortNum": 340000,
+            "created": "2023-10-26T14:45:45.583Z",
+            "modified": "2023-10-26T14:45:45.583Z",
+            "headers": []
+        },
+        {
+            "_id": "60944fb6-4e3a-4258-a97f-bad909e73da2",
+            "colId": "76cd309b-4314-4eac-920a-de6e3211ae0c",
+            "containerId": "6be82546-986a-4581-8746-adb6d7ae6210",
+            "name": "delete",
+            "url": "",
+            "method": "GET",
+            "sortNum": 350000,
+            "created": "2023-10-26T14:45:53.287Z",
+            "modified": "2023-10-26T14:45:53.287Z",
+            "headers": []
+        }
+    ]
+}
