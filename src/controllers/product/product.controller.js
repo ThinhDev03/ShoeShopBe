@@ -175,10 +175,22 @@ export const removeDetail = async (req, res) => {
 // [POST] api/product/update/:id
 export const update = async (req, res) => {
   try {
-    const body = req.body;
+    const { images, ...body } = req.body;
     const { id } = req.params;
     const data = await productRepository.update(id, body);
 
+    const bulkWriteOptions = images.map((scd) => {
+      return {
+        updateOne: {
+          filter: {
+            _id: new mongoose.Types.ObjectId(scd._id),
+          },
+          update: scd,
+          upsert: true,
+        },
+      };
+    });
+    await imageModel.bulkWrite(bulkWriteOptions);
     const response = {
       data,
       message: "Cập nhật sản phẩm thành công",
