@@ -1,7 +1,7 @@
 import { responseError, responseSuccess } from "../helpers/response";
 import cartRepository from "../repositories/cart.repository";
 
-// [GET] api/cart
+
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -35,7 +35,7 @@ export const getByUserId = async (req, res) => {
   }
 };
 
-// [POST] api/cart/create
+
 export const create = async (req, res) => {
   try {
     const body = req.body;
@@ -61,7 +61,7 @@ export const create = async (req, res) => {
   }
 };
 
-// [POST] api/cart/update/:id
+
 export const update = async (req, res) => {
   try {
     const body = req.body;
@@ -79,7 +79,7 @@ export const update = async (req, res) => {
   }
 };
 
-// [DELETE] api/cart/remove/:id
+
 export const remove = async (req, res) => {
   try {
     const { id } = req.params;
