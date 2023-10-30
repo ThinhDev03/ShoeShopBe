@@ -30,7 +30,7 @@ export const read = async (req, res) => {
       total,
       totalPage,
       currentPage: page,
-      message: "Lấy danh sách bill thành công",
+      message: "Lấy danh sách hóa đơn thành công",
     };
 
     return responseSuccess(res, response);
@@ -45,7 +45,7 @@ export const getByUserId = async (req, res) => {
     const data = await billRepository.find({ user_id: id });
     const response = {
       data,
-      message: "Lấy danh sách bill thành công",
+      message: "Lấy danh sách hóa đơn thành công",
     };
 
     return responseSuccess(res, response);
@@ -74,7 +74,7 @@ export const getBillDetailById = async (req, res) => {
     }));
     const response = {
       data: flatData,
-      message: "Lấy danh sách bill thành công",
+      message: "Lấy danh sách hóa đơn thành công",
     };
     return responseSuccess(res, response);
   } catch (error) {
@@ -144,7 +144,7 @@ export const update = async (req, res) => {
     await billDetailRepository.saveMultiple(billDetails);
     const response = {
       data,
-      message: "Cập nhật bill thành công",
+      message: "Cập nhật hóa đơn thành công",
     };
 
     return responseSuccess(res, response);
