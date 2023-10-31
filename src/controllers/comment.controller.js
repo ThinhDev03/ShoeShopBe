@@ -31,7 +31,7 @@ export const getByProductId = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const data = await commentRepository.create(body);
+    const data = await commentRepository.create( body );
 
     const response = {
       data,
@@ -49,7 +49,7 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const data = await commentRepository.update(id, body);
+    const data = await commentRepository.update( id, body );
 
     const response = {
       data,
@@ -66,7 +66,7 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await commentRepository.delete(id);
+    const data = await commentRepository.delete( id );
 
     const response = {
       data,
