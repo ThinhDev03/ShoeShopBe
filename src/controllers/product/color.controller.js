@@ -8,7 +8,7 @@ export const read = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh sách color thành công",
+      message: "Lấy danh sách màu thành công",
     };
 
     return responseSuccess(res, response);
@@ -25,7 +25,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo color thành công",
+      message: "Tạo màu thành công",
     };
 
     return responseSuccess(res, response);
@@ -43,7 +43,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật color thành công",
+      message: "Cập nhật màu thành công",
     };
 
     return responseSuccess(res, response);
@@ -78,7 +78,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa color thành công",
+      message: "Xóa màu thành công",
     };
 
     return responseSuccess(res, response);
