@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import UserSchema from "../database/models/user.model";
+
 const checkAuth = async (req, res, next) => {
   try {
     const { username, password } = req.body;
