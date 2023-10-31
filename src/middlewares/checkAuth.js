@@ -21,7 +21,7 @@ const checkAuth = async (req, res, next) => {
       .status(200)
       .json({ message: "Login success", token, user: userInfo });
   } catch (error) {
-    return res.status(400).json({ message: "Login faileds", error });
+    return res.status(400).json({ message: "Login failed", error });
   }
   next();
 };
