@@ -1,4 +1,5 @@
 import admin from "../helpers/serviceAccount";
+
 const checkGoogle = async (res, token) => {
   try {
     const user = await admin.auth().verifyIdToken(token);
@@ -19,4 +20,5 @@ const checkGoogle = async (res, token) => {
     return res.status(400).json({ message: "google token wrong" });
   }
 };
+
 export default checkGoogle;

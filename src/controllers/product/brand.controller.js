@@ -8,7 +8,7 @@ export const read = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh sách brand thành công",
+      message: "Lấy danh sách thương hiệu thành công",
     };
 
     return responseSuccess(res, response);
@@ -25,7 +25,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo brand thành công",
+      message: "Tạo thương hiệu thành công",
     };
 
     return responseSuccess(res, response);
@@ -43,7 +43,25 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật brand thành công",
+      message: "Cập nhật thương hiệu thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+// [GET] api/brand/:id
+export const findOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await brandRepository.findById(id);
+    console.log(data);
+    const response = {
+      data,
+      message: "Lấy thương hiệu thành công",
     };
 
     return responseSuccess(res, response);
@@ -60,7 +78,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa brand thành công",
+      message: "Xóa thương hiệu thành công",
     };
 
     return responseSuccess(res, response);

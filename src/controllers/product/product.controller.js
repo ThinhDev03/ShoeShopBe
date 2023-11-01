@@ -11,10 +11,11 @@ export const read = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || "";
-    const category = req.query.category ? { category_id: req.query.category } : {};
+    const category = req.query.category
+      ? { category_id: req.query.category }
+      : {};
     const perPage = limit * page - limit;
 
-    console.log(category);
     const product = await productModel
       .find({
         ...category,
@@ -23,13 +24,17 @@ export const read = async (req, res) => {
       .skip(perPage)
       .limit(limit)
       .sort({ createdAt: -1 });
-    const total = await productRepository.totalRecord(search);
+    const total = await productRepository.totalRecord({
+      ...category,
+      name: { $regex: search, $options: "i" },
+    });
     const totalPage = Math.ceil(total / limit);
     return res.status(200).json({
       data: product,
       total,
       totalPage,
       currentPage: page,
+      message: "Lấy danh sách sản phẩm thành công",
     });
   } catch (error) {
     return responseError(res, error);
@@ -56,11 +61,13 @@ export const create = async (req, res) => {
     const body = req.body;
     const { images, ...formBody } = body;
     const data = await productRepository.create(formBody);
-    const formImage = images.map((image_url) => ({
-      image_url,
-      product_id: data._id,
-    }));
-    await imageModel.insertMany(formImage);
+    if (images) {
+      const formImage = images.map((image_url) => ({
+        image_url,
+        product_id: data._id,
+      }));
+      await imageModel.insertMany(formImage);
+    }
 
     const response = {
       data,
@@ -76,7 +83,18 @@ export const create = async (req, res) => {
 export const createDetail = async (req, res) => {
   try {
     const body = req.body;
+
     const data = await productDetailModel.insertMany(body);
+    const product_id = body[0].product_id;
+    const listDetail = await productDetailModel.find({
+      product_id,
+    });
+
+    listDetail.sort((a, b) => a.price - b.price);
+    const fromPrice = listDetail[0].price;
+    const toPrice = listDetail[listDetail.length - 1].price;
+
+    await productRepository.update(product_id, { fromPrice, toPrice });
     const response = {
       data,
       message: "Tạo sản phẩm thành công",
@@ -131,9 +149,9 @@ export const updateDetailById = async (req, res) => {
         },
       };
     });
-    const data = await productDetailModel.bulkWrite(bulkWriteOptions);
+    await productDetailModel.bulkWrite(bulkWriteOptions);
     const response = {
-      data,
+      data: null,
       message: "Cập nhật sản phẩm thành công",
     };
 
@@ -160,9 +178,22 @@ export const removeDetail = async (req, res) => {
 // [POST] api/product/update/:id
 export const update = async (req, res) => {
   try {
-    const body = req.body;
+    const { images, newImages, ...body } = req.body;
     const { id } = req.params;
     const data = await productRepository.update(id, body);
+
+    const bulkWriteOptions = images.map((scd) => {
+      return {
+        updateOne: {
+          filter: {
+            _id: new mongoose.Types.ObjectId(scd._id),
+          },
+          update: scd,
+          upsert: true,
+        },
+      };
+    });
+    await imageModel.bulkWrite(bulkWriteOptions);
 
     const response = {
       data,

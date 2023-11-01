@@ -4,9 +4,10 @@ import productRoutes from "./product";
 import userRoutes from "./user";
 
 const routes = [
-    { ...userRoutes },
-    { ...commonRoutes },
-    { ...adminRoutes },
-    { ...productRoutes },
+  { ...userRoutes },
+  { ...commonRoutes },
+  { ...adminRoutes },
+  { ...productRoutes },
 ];
 export default routes;
+

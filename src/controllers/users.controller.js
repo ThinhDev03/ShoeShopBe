@@ -1,5 +1,6 @@
 import Auth from "../database/models/user.model";
 import Joi from "joi";
+import { responseError, responseSuccess } from "../helpers/response";
 const login = async (req, res) => {
   try {
     res.status(200).json({ message: "Login success", error });
@@ -28,9 +29,43 @@ const register = async (req, res) => {
     const user = await new Auth(body).save();
     return res.status(200).json({ message: "register success", user });
   } catch (error) {
-    res.status(400).json({ message: "Đăng ký không thành công", error });
+    res.status(400).json({ message: "Đăng ký tài khoản không thành công", error });
   }
 };
+
+export const update = async (req, res) => {
+  try {
+    const body = req.body;
+    const { id } = req.params;
+    const data = await Auth.findByIdAndUpdate(id, body, { new: true });
+
+    const response = {
+      data,
+      message: "Cập nhật người dùng thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+export const lockUser = async (req, res) => {
+  try {
+    const body = req.body;
+    const { id } = req.params;
+    const data = await Auth.findByIdAndUpdate(id, body, { new: true });
+
+    const response = {
+      data,
+      message: "Cập nhật người dùng thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
 const authorization = () => {
   try {
   } catch (error) {
@@ -43,24 +78,50 @@ const getAll = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || "";
+    const user_role = req.query.user_role || "";
+    const is_locked = req.query.is_locked || false;
     const perPage = limit * page - limit;
-    const project = await Auth.find({
-      name: { $regex: search, $options: "i" },
+    const data = await Auth.find({
+      fullname: { $regex: search, $options: "i" },
+      role: { $regex: user_role, $options: "i" },
+      is_locked,
     })
       .skip(perPage)
       .limit(limit);
     const total = await Auth.countDocuments({
-      name: { $regex: search, $options: "i" },
+      fullname: { $regex: search, $options: "i" },
+      role: { $regex: user_role, $options: "i" },
+      is_locked,
     });
-    const totalPage = Math.ceil(total / limit);
+    const pageSize = Math.ceil(total / limit);
     return res.status(200).json({
-      data: project,
+      data,
+      limit,
+      rowPerPage: perPage,
       total,
-      totalPage,
+      pageSize,
       currentPage: page,
     });
   } catch (error) {
     console.log(error);
   }
 };
+
+// [GET] api/user/:id
+export const getOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const data = await Auth.findById(id);
+    const response = {
+      data: data,
+      message: "Lấy người dùng thành công ",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
 export { register, login, authorization, getAll };
