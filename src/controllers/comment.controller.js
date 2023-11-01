@@ -53,7 +53,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật bình luận thành công",
+      message: "Cập nhật thành công bình luận ",
     };
 
     return responseSuccess(res, response);
@@ -70,7 +70,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa bình luận thành công",
+      message: "Xóa thành công bình luận ",
     };
 
     return responseSuccess(res, response);
