@@ -9,8 +9,9 @@ export const getByUserId = async (req, res) => {
     let totalMoney = 0;
     const newData = data.map((product) => {
       totalMoney += product.product_id.price * product.quantity;
+      console.log(product);
       return {
-        _id: product._id,
+        product_id: product.product_id._id,
         name: product.product_id.product_id.name,
         price: product.product_id.price,
         sale: product.product_id.sale,
