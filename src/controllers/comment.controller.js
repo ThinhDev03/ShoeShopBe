@@ -38,6 +38,7 @@ export const create = async (req, res) => {
       message: "Tạo bình luận thành công ",
     };
 
+
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
@@ -53,7 +54,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật bình luận thành công ",
+      message: "Cập nhật bình luận thành công",
     };
 
     return responseSuccess(res, response);
@@ -70,7 +71,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa bình luận thành công ",
+      message: "Xóa bình luận thành công",
     };
 
     return responseSuccess(res, response);
