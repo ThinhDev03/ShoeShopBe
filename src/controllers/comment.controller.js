@@ -31,12 +31,12 @@ export const getByProductId = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const data = await commentRepository.create( body );
-
+    const data = await commentRepository.create(body);
 
     const response = {
       data,
-      message: "Tạo bình luận thành công",
+      message: "Tạo bình luận thành công ! ",
+
     };
 
 
@@ -51,11 +51,13 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const data = await commentRepository.update( id, body );
-        const response = {
-            data,
-            message: "Cập nhật thành công bình luận ",
-        };
+    const data = await commentRepository.update(id, body);
+
+    const response = {
+      data,
+      message: "Cập nhật bình luận thành công",
+    };
+
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
@@ -66,11 +68,11 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await commentRepository.delete( id );
+    const data = await commentRepository.delete(id);
 
     const response = {
       data,
-      message: "Xóa thành công bình luận ",
+      message: "Xóa bình luận thành công",
     };
 
     return responseSuccess(res, response);

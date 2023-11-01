@@ -29,7 +29,7 @@ const register = async (req, res) => {
     const user = await new Auth(body).save();
     return res.status(200).json({ message: "register success", user });
   } catch (error) {
-    res.status(400).json({ message: "Đăng ký không thành công", error });
+    res.status(400).json({ message: "Đăng ký tài khoản không thành công", error });
   }
 };
 
@@ -115,7 +115,7 @@ export const getOne = async (req, res) => {
     const data = await Auth.findById(id);
     const response = {
       data: data,
-      message: "Lấy người dùng thành công.",
+      message: "Lấy người dùng thành công ",
     };
 
     return responseSuccess(res, response);
