@@ -24,7 +24,10 @@ export const read = async (req, res) => {
       .skip(perPage)
       .limit(limit)
       .sort({ createdAt: -1 });
-    const total = await productRepository.totalRecord(search);
+    const total = await productRepository.totalRecord({
+      ...category,
+      name: { $regex: search, $options: "i" },
+    });
     const totalPage = Math.ceil(total / limit);
     return res.status(200).json({
       data: product,
@@ -175,7 +178,7 @@ export const removeDetail = async (req, res) => {
 // [POST] api/product/update/:id
 export const update = async (req, res) => {
   try {
-    const { images, ...body } = req.body;
+    const { images, newImages, ...body } = req.body;
     const { id } = req.params;
     const data = await productRepository.update(id, body);
 
@@ -191,6 +194,7 @@ export const update = async (req, res) => {
       };
     });
     await imageModel.bulkWrite(bulkWriteOptions);
+
     const response = {
       data,
       message: "Cập nhật sản phẩm thành công",

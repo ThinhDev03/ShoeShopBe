@@ -15,6 +15,7 @@ const UserSchema = new Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
     },
     fullname: {
       type: String,
@@ -31,6 +32,14 @@ const UserSchema = new Schema(
       type: String,
       enum: ["USER", "ADMIN", "EMPLOYEE"],
       default: "USER",
+    },
+    gender: {
+      enum: ["MAN", "FEMAN"],
+      type: String,
+    },
+    is_locked: {
+      type: Boolean,
+      default: false,
     },
     phone: {
       type: String,

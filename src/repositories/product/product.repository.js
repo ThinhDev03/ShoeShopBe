@@ -5,10 +5,8 @@ class ProductRepository extends BaseRepository {
   constructor(props) {
     super(props);
   }
-  async totalRecord(search) {
-    return await productModel.countDocuments({
-      name: { $regex: search, $options: "i" },
-    });
+  async totalRecord(options) {
+    return await productModel.countDocuments(options);
   }
 }
 
