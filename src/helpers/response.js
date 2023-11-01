@@ -22,7 +22,7 @@ export const responseError = (res, error) => {
     // Case error is object
     const errorObject = error.error;
     return res.status(status).send({
-      message: "Lỗi",
+      message: "Lỗi rồi ",
       data: errorObject,
     });
   }
