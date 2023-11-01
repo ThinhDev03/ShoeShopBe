@@ -33,10 +33,12 @@ export const create = async (req, res) => {
     const body = req.body;
     const data = await commentRepository.create( body );
 
+
     const response = {
       data,
       message: "Tạo bình luận thành công",
     };
+
 
     return responseSuccess(res, response);
   } catch (error) {
@@ -50,12 +52,10 @@ export const update = async (req, res) => {
     const body = req.body;
     const { id } = req.params;
     const data = await commentRepository.update( id, body );
-
-    const response = {
-      data,
-      message: "Cập nhật thành công bình luận ",
-    };
-
+        const response = {
+            data,
+            message: "Cập nhật thành công bình luận ",
+        };
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
