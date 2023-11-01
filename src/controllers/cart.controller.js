@@ -1,7 +1,6 @@
 import { responseError, responseSuccess } from "../helpers/response";
 import cartRepository from "../repositories/cart.repository";
 
-
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -14,6 +13,7 @@ export const getByUserId = async (req, res) => {
         _id: product._id,
         name: product.product_id.product_id.name,
         price: product.product_id.price,
+        sale: product.product_id.sale,
         quantity: product.quantity,
         totalQuantity: product.product_id.quantity,
         image: product.product_id.image_id.image_url,
@@ -34,7 +34,6 @@ export const getByUserId = async (req, res) => {
     return responseError(res, error);
   }
 };
-
 
 export const create = async (req, res) => {
   try {
@@ -61,7 +60,6 @@ export const create = async (req, res) => {
   }
 };
 
-
 export const update = async (req, res) => {
   try {
     const body = req.body;
@@ -78,7 +76,6 @@ export const update = async (req, res) => {
     return responseError(res, error);
   }
 };
-
 
 export const remove = async (req, res) => {
   try {
