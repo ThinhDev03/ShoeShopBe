@@ -2,6 +2,7 @@ import { responseError, responseSuccess } from "../helpers/response";
 import commentRepository from "../repositories/comment.repository";
 
 // [GET] api/comment
+
 export const getByProductId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -71,7 +72,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa bình luận thành công ",
+      message: "Xóa bình luận thành công !!!",
     };
 
     return responseSuccess(res, response);

@@ -34,7 +34,7 @@ export const read = async (req, res) => {
       total,
       totalPage,
       currentPage: page,
-      message: "Lấy danh sách sản phẩm thành công",
+      message: "Lấy danh sách sản phẩm thành công ",
     });
   } catch (error) {
     return responseError(res, error);
@@ -47,7 +47,7 @@ export const getBuyId = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy sản phẩm thành công",
+      message: "Lấy sản phẩm thành công ",
     };
 
     return responseSuccess(res, response);
@@ -71,7 +71,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo sản phẩm thành công",
+      message: "Tạo sản phẩm thành công ",
     };
 
     return responseSuccess(res, response);
@@ -97,7 +97,7 @@ export const createDetail = async (req, res) => {
     await productRepository.update(product_id, { fromPrice, toPrice });
     const response = {
       data,
-      message: "Tạo sản phẩm thành công",
+      message: "Tạo sản phẩm thành công ",
     };
     return responseSuccess(res, response);
   } catch (error) {

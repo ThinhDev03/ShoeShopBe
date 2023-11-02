@@ -8,7 +8,7 @@ export const read = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh sách danh mục thành công",
+      message: "Lấy danh sách danh mục thành công ",
     };
 
     return responseSuccess(res, response);
