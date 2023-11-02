@@ -70,6 +70,7 @@ export const findOne = async (req, res) => {
   }
 };
 
+
 // [DELETE] api/category/remove/:id
 export const remove = async (req, res) => {
   try {
