@@ -1,5 +1,7 @@
 import * as colorController from "../../controllers/product/color.controller";
 import express from "express";
+
+
 const colorRoute = express.Router();
 
 colorRoute.post("/create", colorController.create);

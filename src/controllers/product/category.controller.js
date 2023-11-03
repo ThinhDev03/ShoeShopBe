@@ -79,7 +79,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa danh mục thành công",
+      message: "Xóa danh mục thành công ",
     };
 
     return responseSuccess(res, response);
