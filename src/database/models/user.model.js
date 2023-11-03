@@ -54,6 +54,7 @@ UserSchema.pre("save", function (next) {
   this.password = this.bcryptPassword(this.password);
   next();
 });
+
 UserSchema.methods = {
   bcryptPassword(password) {
     if (!password) return "";
