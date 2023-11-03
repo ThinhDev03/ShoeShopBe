@@ -23,6 +23,6 @@ const CartSchema = new Schema(
   }
 );
 
-CartSchema.plugin(mongooseAutoPopulate);
 
+CartSchema.plugin(mongooseAutoPopulate);
 export default mongoose.model("cart", CartSchema);
