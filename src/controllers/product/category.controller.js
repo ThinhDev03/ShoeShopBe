@@ -8,7 +8,7 @@ export const read = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh sách danh mục thành công",
+      message: "Lấy danh sách danh mục thành công ",
     };
 
     return responseSuccess(res, response);
@@ -69,6 +69,7 @@ export const findOne = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 
 // [DELETE] api/category/remove/:id
 export const remove = async (req, res) => {
