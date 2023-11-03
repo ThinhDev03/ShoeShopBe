@@ -27,7 +27,7 @@ export const read = async (req, res) => {
       .limit(limit)
       .sort({ createdAt: -1 });
     const total = await billRepository.totalRecord(filterOptions);
-    const totalPage = Math.ceil(total / limit);
+    const totalPage = Math.ceil(total/limit);
 
     const response = {
       data: bill,
