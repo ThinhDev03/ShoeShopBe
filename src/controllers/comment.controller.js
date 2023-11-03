@@ -25,6 +25,7 @@ export const getByProductId = async (req, res) => {
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
+
   }
 };
 // [POST] api/comment/:id
