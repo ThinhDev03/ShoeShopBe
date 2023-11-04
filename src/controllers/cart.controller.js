@@ -10,7 +10,7 @@ export const getByUserId = async (req, res) => {
     const newData = data.map((product) => {
       totalMoney += product.product_id.price * product.quantity;
       return {
-        product_id: product.product_id._id,
+        product_id: product.product_id.product_id._id,
         name: product.product_id.product_id.name,
         price: product.product_id.price,
         sale: product.product_id.sale,
@@ -21,6 +21,7 @@ export const getByUserId = async (req, res) => {
         size: product.product_id.size_id.size_name,
       };
     });
+    console.log(data);
     const response = {
       data: {
         cart: newData,
