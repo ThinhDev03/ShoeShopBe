@@ -28,7 +28,6 @@ const BillSchema = new Schema(
     },
     note: {
       type: String,
-      required: true,
     },
     total_money: {
       type: Number,

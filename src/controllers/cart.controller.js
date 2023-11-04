@@ -4,16 +4,16 @@ import cartRepository from "../repositories/cart.repository";
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log(id);
     const data = await cartRepository.find({ user_id: id });
     let totalMoney = 0;
     const newData = data.map((product) => {
-      totalMoney += product.product_id.price * product.quantity;
       return {
-        product_id: product.product_id.product_id._id,
+        cart_id: product._id,
+        product_id: product.product_id._id,
         name: product.product_id.product_id.name,
         price: product.product_id.price,
-        sale: product.product_id.sale,
+        sale: product.product_id.sale || 0,
         quantity: product.quantity,
         totalQuantity: product.product_id.quantity,
         image: product.product_id.image_id.image_url,
@@ -21,12 +21,8 @@ export const getByUserId = async (req, res) => {
         size: product.product_id.size_id.size_name,
       };
     });
-    console.log(data);
     const response = {
-      data: {
-        cart: newData,
-        totalMoney,
-      },
+      data: newData,
       message: "Lấy danh sách cart thành công",
     };
 
