@@ -18,8 +18,7 @@ export const getByProductId = async (req, res) => {
     });
     const response = {
       data: newData,
-      message: "Lấy danh sách bình luận thành công ",
-
+      message: " Ban da Lấy danh sách bình luận thành công ",
     };
 
     return responseSuccess(res, response);
@@ -37,7 +36,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo bình luận thành công ",
+      message: "Ban da Tạo bình luận thành công ",
     };
 
 
