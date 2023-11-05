@@ -43,7 +43,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật danh mục thành công",
+      message: "Cập nhật danh mục thành công ",
     };
 
     return responseSuccess(res, response);
@@ -61,7 +61,7 @@ export const findOne = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh mục thành công.",
+      message: "Lấy danh mục thành công ",
     };
 
     return responseSuccess(res, response);
@@ -81,8 +81,8 @@ export const remove = async (req, res) => {
       data,
       message: "Xóa danh mục thành công ",
     };
-
     return responseSuccess(res, response);
+
   } catch (error) {
     return responseError(res, error);
   }
