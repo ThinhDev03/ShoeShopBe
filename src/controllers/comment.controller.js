@@ -18,7 +18,7 @@ export const getByProductId = async (req, res) => {
     });
     const response = {
       data: newData,
-      message: "Lấy danh sách bình luận thành công ",
+      message: "Lấy danh sách bình luận thành công",
     };
 
     return responseSuccess(res, response);
