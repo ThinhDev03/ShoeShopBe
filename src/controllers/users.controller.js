@@ -1,6 +1,7 @@
 import Auth from "../database/models/user.model";
 import Joi from "joi";
 import { responseError, responseSuccess } from "../helpers/response";
+
 const login = async (req, res) => {
   try {
     res.status(200).json({ message: "Login success", error });
@@ -29,7 +30,9 @@ const register = async (req, res) => {
     const user = await new Auth(body).save();
     return res.status(200).json({ message: "register success", user });
   } catch (error) {
-    res.status(400).json({ message: "Đăng ký tài khoản không thành công", error });
+    res
+      .status(400)
+      .json({ message: "Đăng ký tài khoản không thành công", error });
   }
 };
 
@@ -41,7 +44,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật người dùng thành công",
+      message: "Cập nhật thông tin người dùng thành công",
     };
 
     return responseSuccess(res, response);
@@ -49,6 +52,7 @@ export const update = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const lockUser = async (req, res) => {
   try {
     const body = req.body;
@@ -57,7 +61,7 @@ export const lockUser = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật người dùng thành công",
+      message: "Cập nhật thông tin người dùng thành công",
     };
 
     return responseSuccess(res, response);
@@ -72,6 +76,7 @@ const authorization = () => {
     res.status(400).json({ message: "wrong Token", error });
   }
 };
+
 // [GET] all project
 const getAll = async (req, res) => {
   try {
@@ -115,7 +120,7 @@ export const getOne = async (req, res) => {
     const data = await Auth.findById(id);
     const response = {
       data: data,
-      message: "Lấy người dùng thành công ",
+      message: "Lấy thông tin người dùng thành công ",
     };
 
     return responseSuccess(res, response);
