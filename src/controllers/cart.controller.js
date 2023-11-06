@@ -1,7 +1,7 @@
 import { responseError, responseSuccess } from "../helpers/response";
 import cartRepository from "../repositories/cart.repository";
 
-// [GET] api/cart
+
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -26,7 +26,7 @@ export const getByUserId = async (req, res) => {
         cart: newData,
         totalMoney,
       },
-      message: "Lấy danh sách cart thành công",
+      message: "Lấy danh sách giỏ hàng thành công",
     };
 
     return responseSuccess(res, response);
@@ -35,7 +35,7 @@ export const getByUserId = async (req, res) => {
   }
 };
 
-// [POST] api/cart/create
+
 export const create = async (req, res) => {
   try {
     const body = req.body;
@@ -51,7 +51,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo cart thành công",
+      message: "Tạo giỏ hàng thành công",
     };
 
     return responseSuccess(res, response);
@@ -61,7 +61,7 @@ export const create = async (req, res) => {
   }
 };
 
-// [POST] api/cart/update/:id
+
 export const update = async (req, res) => {
   try {
     const body = req.body;
@@ -70,7 +70,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật cart thành công",
+      message: "Cập nhật giỏ hàng thành công",
     };
 
     return responseSuccess(res, response);
@@ -79,7 +79,7 @@ export const update = async (req, res) => {
   }
 };
 
-// [DELETE] api/cart/remove/:id
+
 export const remove = async (req, res) => {
   try {
     const { id } = req.params;
@@ -87,7 +87,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa cart thành công",
+      message: "Xóa giỏ hàng thành công",
     };
 
     return responseSuccess(res, response);

@@ -61,7 +61,7 @@ export const findOne = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy kích thước thành công.",
+      message: "Lấy size thành công.",
     };
 
     return responseSuccess(res, response);

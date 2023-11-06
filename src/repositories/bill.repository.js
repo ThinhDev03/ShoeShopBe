@@ -5,11 +5,9 @@ class BillRepository extends BaseRepository {
   constructor(props) {
     super(props);
   }
-  async totalRecord(search) {
-    return await billModel.countDocuments({
-      receiver: { $regex: search, $options: "i" },
-    });
+  async totalRecord(options) {
+    return await billModel.countDocuments(options);
   }
 }
 
-export default new BillRepository({ model: billModel });
+export default new BillRepository({ model:billModel });

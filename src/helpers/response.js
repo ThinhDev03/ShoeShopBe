@@ -21,8 +21,8 @@ export const responseError = (res, error) => {
     }
     // Case error is object
     return res.status(status).send({
-      message: "lỗi",
-      data: null,
+      message: "lỗi rồi ",
+      data: errorObject
     });
   }
   return res

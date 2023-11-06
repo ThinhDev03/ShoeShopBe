@@ -24,14 +24,17 @@ export const read = async (req, res) => {
       .skip(perPage)
       .limit(limit)
       .sort({ createdAt: -1 });
-    const total = await productRepository.totalRecord(search);
+    const total = await productRepository.totalRecord({
+      ...category,
+      name: { $regex: search, $options: "i" },
+    });
     const totalPage = Math.ceil(total / limit);
     return res.status(200).json({
       data: product,
       total,
       totalPage,
       currentPage: page,
-      message: "Lấy danh sách sản phẩm thành công",
+      message: "Lấy danh sách sản phẩm thành công ",
     });
   } catch (error) {
     return responseError(res, error);
@@ -44,7 +47,7 @@ export const getBuyId = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy sản phẩm thành công",
+      message: "Lấy sản phẩm thành công ",
     };
 
     return responseSuccess(res, response);
@@ -68,7 +71,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo sản phẩm thành công",
+      message: "Tạo sản phẩm thành công ",
     };
 
     return responseSuccess(res, response);
@@ -94,7 +97,7 @@ export const createDetail = async (req, res) => {
     await productRepository.update(product_id, { fromPrice, toPrice });
     const response = {
       data,
-      message: "Tạo sản phẩm thành công",
+      message: "Tạo sản phẩm thành công ",
     };
     return responseSuccess(res, response);
   } catch (error) {
@@ -175,9 +178,22 @@ export const removeDetail = async (req, res) => {
 // [POST] api/product/update/:id
 export const update = async (req, res) => {
   try {
-    const body = req.body;
+    const { images, newImages, ...body } = req.body;
     const { id } = req.params;
     const data = await productRepository.update(id, body);
+
+    const bulkWriteOptions = images.map((scd) => {
+      return {
+        updateOne: {
+          filter: {
+            _id: new mongoose.Types.ObjectId(scd._id),
+          },
+          update: scd,
+          upsert: true,
+        },
+      };
+    });
+    await imageModel.bulkWrite(bulkWriteOptions);
 
     const response = {
       data,
