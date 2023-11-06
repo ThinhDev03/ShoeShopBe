@@ -83,7 +83,7 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await cartRepository.delete(id);
+    const data = await cartRepository.delete( id );
 
     const response = {
       data,
