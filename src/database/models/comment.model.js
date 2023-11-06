@@ -29,4 +29,5 @@ const CommentSchema = new Schema(
 );
 
 CommentSchema.plugin(mongooseAutoPopulate);
+
 export default mongoose.model("comment", CommentSchema);
