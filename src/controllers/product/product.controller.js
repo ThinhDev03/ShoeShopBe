@@ -28,7 +28,7 @@ export const read = async (req, res) => {
       ...category,
       name: { $regex: search, $options: "i" },
     });
-    const totalPage = Math.ceil(total / limit);
+    const totalPage = Math.ceil(total/limit);
     return res.status(200).json({
       data: product,
       total,
