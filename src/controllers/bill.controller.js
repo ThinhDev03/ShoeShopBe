@@ -77,6 +77,7 @@ export const getOne = async (req, res) => {
       image: order.product_id.image_id.image_url,
       quantity: order.quantity,
     }));
+    console.log(billDetail);
     const response = {
       data,
       billDetail: flatData,
@@ -134,8 +135,10 @@ export const create = async (req, res) => {
     };
     const data = await billRepository.create(formBody);
 
-    const billDetails = products.map(async ({ cart_id, ...product }) => {
+    products.forEach(async ({ cart_id }) => {
       await cartRepository.delete(cart_id);
+    });
+    const billDetails = products.map(({ cart_id, ...product }) => {
       return { bill_id: data.id, ...product };
     });
     await billDetailRepository.saveMultiple(billDetails);

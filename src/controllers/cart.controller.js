@@ -1,19 +1,19 @@
 import { responseError, responseSuccess } from "../helpers/response";
 import cartRepository from "../repositories/cart.repository";
 
-
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-
+    console.log(id);
     const data = await cartRepository.find({ user_id: id });
     let totalMoney = 0;
     const newData = data.map((product) => {
-      totalMoney += product.product_id.price * product.quantity;
       return {
-        _id: product._id,
+        cart_id: product._id,
+        product_id: product.product_id._id,
         name: product.product_id.product_id.name,
         price: product.product_id.price,
+        sale: product.product_id.sale || 0,
         quantity: product.quantity,
         totalQuantity: product.product_id.quantity,
         image: product.product_id.image_id.image_url,
@@ -22,11 +22,16 @@ export const getByUserId = async (req, res) => {
       };
     });
     const response = {
+<<<<<<< HEAD
       data: {
         cart: newData,
         totalMoney,
       },
       message: "Lấy danh sách giỏ hàng thành công",
+=======
+      data: newData,
+      message: "Lấy danh sách cart thành công",
+>>>>>>> test
     };
 
     return responseSuccess(res, response);
@@ -34,7 +39,6 @@ export const getByUserId = async (req, res) => {
     return responseError(res, error);
   }
 };
-
 
 export const create = async (req, res) => {
   try {
@@ -61,7 +65,6 @@ export const create = async (req, res) => {
   }
 };
 
-
 export const update = async (req, res) => {
   try {
     const body = req.body;
@@ -78,7 +81,6 @@ export const update = async (req, res) => {
     return responseError(res, error);
   }
 };
-
 
 export const remove = async (req, res) => {
   try {

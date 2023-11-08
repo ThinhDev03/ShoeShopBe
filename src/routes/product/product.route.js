@@ -15,4 +15,8 @@ productRoute.post("/update-detail", productController.updateDetailById);
 productRoute.get("/detail/:id", productController.getDetailById);
 productRoute.delete("/remove-detail/:id", productController.removeDetail);
 
+// image
+productRoute.post("/create-image", productController.createImage);
+productRoute.delete("/remove-image/:id", productController.removeImage);
+
 export default productRoute;

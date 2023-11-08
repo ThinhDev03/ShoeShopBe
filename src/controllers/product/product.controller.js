@@ -222,3 +222,42 @@ export const remove = async (req, res) => {
     return responseError(res, error);
   }
 };
+
+// [POST] api/product/create-image
+export const createImage = async (req, res) => {
+  try {
+    const { images, product_id } = req.body;
+    console.log(images);
+    const formImage = images.map((image_url) => ({
+      image_url,
+      product_id,
+    }));
+    const data = await imageModel.insertMany(formImage);
+
+    const response = {
+      data,
+      message: "Tạo hình ảnh thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+// [DELETE] api/product/remove-image/:id
+export const removeImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await imageModel.findByIdAndDelete(id);
+
+    const response = {
+      data,
+      message: "Xóa hình ảnh thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
