@@ -27,7 +27,7 @@ export const read = async (req, res) => {
       .limit(limit)
       .sort({ createdAt: -1 });
     const total = await billRepository.totalRecord(filterOptions);
-    const totalPage = Math.ceil(total / limit);
+    const totalPage = Math.ceil(total/limit);
 
     const response = {
       data: bill,
@@ -81,7 +81,7 @@ export const getOne = async (req, res) => {
     const response = {
       data,
       billDetail: flatData,
-      message: "Lấy danh sách bill thành công",
+      message: "Lấy danh sách hoá đơn thành công",
     };
 
     return responseSuccess(res, response);
@@ -198,7 +198,7 @@ export const updateStatus = async (req, res) => {
     const data = await billRepository.update(id, body);
     const response = {
       data,
-      message: "Cập nhật bill thành công",
+      message: "Cập nhật hoá đơn thành công",
     };
     return responseSuccess(res, response);
   } catch (error) {
