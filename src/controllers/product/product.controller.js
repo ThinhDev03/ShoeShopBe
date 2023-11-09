@@ -28,7 +28,7 @@ export const read = async (req, res) => {
       ...category,
       name: { $regex: search, $options: "i" },
     });
-    const totalPage = Math.ceil(total/limit);
+    const totalPage = Math.ceil(total / limit);
     return res.status(200).json({
       data: product,
       total,
@@ -40,6 +40,7 @@ export const read = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const getBuyId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -55,6 +56,7 @@ export const getBuyId = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 // [POST] api/product/create
 export const create = async (req, res) => {
   try {
@@ -120,6 +122,7 @@ export const getImageByProduct = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const getDetailById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,6 +138,7 @@ export const getDetailById = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const updateDetailById = async (req, res) => {
   try {
     const body = req.body;
@@ -160,6 +164,7 @@ export const updateDetailById = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const removeDetail = async (req, res) => {
   try {
     const { id } = req.params;
