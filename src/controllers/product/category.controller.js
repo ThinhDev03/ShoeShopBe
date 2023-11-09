@@ -25,7 +25,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo danh mục thành công",
+      message: "Tạo danh mục thành công ",
     };
 
     return responseSuccess(res, response);
@@ -43,7 +43,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật danh mục thành công ",
+      message: "Cập nhật danh mục thành công",
     };
 
     return responseSuccess(res, response);

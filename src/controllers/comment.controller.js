@@ -55,9 +55,8 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật bình luận thành công ban oiw   ",
+      message: "Cập nhật bình luận thành công ",
     };
-
     return responseSuccess(res, response);
 
   } catch (error) {
@@ -73,7 +72,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa bình luận thành công !!! ffff",
+      message: "Xóa bình luận thành công ",
     };
 
     return responseSuccess(res, response);
