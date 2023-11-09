@@ -34,7 +34,7 @@ export const read = async (req, res) => {
       total,
       totalPage,
       currentPage: page,
-      message: "Lấy danh sách hóa đơn thành công",
+      message: "Lấy danh sách hóa đơn thành công ",
     };
 
     return responseSuccess(res, response);
