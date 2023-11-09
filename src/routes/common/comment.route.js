@@ -1,7 +1,6 @@
 import * as commentController from "../../controllers/comment.controller";
 import express from "express";
 
-
 const commentRoute = express.Router();
 
 commentRoute.post("/create", commentController.create);
