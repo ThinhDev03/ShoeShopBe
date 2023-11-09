@@ -22,16 +22,11 @@ export const getByUserId = async (req, res) => {
       };
     });
     const response = {
-<<<<<<< HEAD
       data: {
         cart: newData,
         totalMoney,
       },
       message: "Lấy danh sách giỏ hàng thành công",
-=======
-      data: newData,
-      message: "Lấy danh sách cart thành công",
->>>>>>> test
     };
 
     return responseSuccess(res, response);
@@ -85,7 +80,7 @@ export const update = async (req, res) => {
 export const remove = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await cartRepository.delete( id );
+    const data = await cartRepository.delete(id);
 
     const response = {
       data,
