@@ -1,7 +1,6 @@
 import querystring from "qs";
 import crypto from "crypto";
 import moment from "moment";
-
 export function createPayment(req, res, next) {
   try {
     const config = {
@@ -28,16 +27,9 @@ export function createPayment(req, res, next) {
     const orderInfo = "Noi dung thanh toan";
     const orderType = "billpayment";
     const locale = "vn";
-    // const amount = req.body.amount;
-    // const bankCode = req.body.bankCode;
-
-    // const orderInfo = req.body.orderDescription;
-    // const orderType = req.body.orderType;
-    // const locale = req.body.language;
     if (locale === null || locale === "") {
       locale = "vn";
     }
-
     const currCode = "VND";
     let vnp_Params = {};
     vnp_Params["vnp_Version"] = "2.1.0";
