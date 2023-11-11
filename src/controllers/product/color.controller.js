@@ -57,7 +57,7 @@ export const findOne = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await colorRepository.findById(id);
+    const data = await colorRepository.findById( id );
 
     const response = {
       data,
