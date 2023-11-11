@@ -21,7 +21,7 @@ export const read = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const data = await brandRepository.create( body );
+    const data = await brandRepository.create(body);
 
     const response = {
       data,
