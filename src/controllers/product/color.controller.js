@@ -21,7 +21,7 @@ export const read = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const data = await colorRepository.create(body);
+    const data = await colorRepository.create( body );
 
     const response = {
       data,
@@ -39,7 +39,7 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const data = await colorRepository.update(id, body);
+    const data = await colorRepository.update( id, body );
 
     const response = {
       data,
