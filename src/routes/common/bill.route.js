@@ -1,5 +1,6 @@
 import * as billController from "../../controllers/bill.controller";
 import express from "express";
+
 const billRoute = express.Router();
 
 billRoute.post("/create", billController.create);

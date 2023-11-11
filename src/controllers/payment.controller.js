@@ -27,12 +27,6 @@ export function createPayment(req, res, next) {
     const orderInfo = "Noi dung thanh toan";
     const orderType = "billpayment";
     const locale = "vn";
-    // const amount = req.body.amount;
-    // const bankCode = req.body.bankCode;
-
-    // const orderInfo = req.body.orderDescription;
-    // const orderType = req.body.orderType;
-    // const locale = req.body.language;
     if (locale === null || locale === "") {
       locale = "vn";
     }
@@ -51,6 +45,7 @@ export function createPayment(req, res, next) {
     vnp_Params["vnp_ReturnUrl"] = returnUrl;
     vnp_Params["vnp_IpAddr"] = ipAddr;
     vnp_Params["vnp_CreateDate"] = createDate;
+
     if (bankCode !== null && bankCode !== "") {
       vnp_Params["vnp_BankCode"] = bankCode;
     }
@@ -60,6 +55,7 @@ export function createPayment(req, res, next) {
     const signData = querystring.stringify(vnp_Params, { encode: false });
     const hmac = crypto.createHmac("sha512", secretKey);
     const signed = hmac.update(new Buffer(signData, "utf-8")).digest("hex");
+
     vnp_Params["vnp_SecureHash"] = signed;
     vnpUrl += "?" + querystring.stringify(vnp_Params, { encode: false });
 
@@ -73,12 +69,14 @@ function sortObject(obj) {
   let sorted = {};
   let str = [];
   let key;
+
   for (key in obj) {
     if (obj.hasOwnProperty(key)) {
       str.push(encodeURIComponent(key));
     }
   }
   str.sort();
+
   for (key = 0; key < str.length; key++) {
     sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
   }
@@ -110,6 +108,7 @@ export function savePayment(req, res, next) {
 
   let checkOrderId = true; // Mã đơn hàng "giá trị của vnp_TxnRef" VNPAY phản hồi tồn tại trong CSDL của bạn
   let checkAmount = true; // Kiểm tra số tiền "giá trị của vnp_Amout/100" trùng khớp với số tiền của đơn hàng trong CSDL của bạn
+
   if (secureHash === signed) {
     //kiểm tra checksum
     if (checkOrderId) {
@@ -128,12 +127,10 @@ export function savePayment(req, res, next) {
             res.status(200).json({ RspCode: "00", Message: "Success" });
           }
         } else {
-          res
-            .status(200)
-            .json({
-              RspCode: "02",
-              Message: "This order has been updated to the payment status",
-            });
+          res.status(200).json({
+            RspCode: "02",
+            Message: "This order has been updated to the payment status",
+          });
         }
       } else {
         res.status(200).json({ RspCode: "04", Message: "Amount invalid" });

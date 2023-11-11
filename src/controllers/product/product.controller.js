@@ -28,7 +28,7 @@ export const read = async (req, res) => {
       ...category,
       name: { $regex: search, $options: "i" },
     });
-    const totalPage = Math.ceil(total/limit);
+    const totalPage = Math.ceil(total / limit);
     return res.status(200).json({
       data: product,
       total,
@@ -40,6 +40,7 @@ export const read = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const getBuyId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -55,6 +56,7 @@ export const getBuyId = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 // [POST] api/product/create
 export const create = async (req, res) => {
   try {
@@ -120,6 +122,7 @@ export const getImageByProduct = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const getDetailById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -135,6 +138,7 @@ export const getDetailById = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const updateDetailById = async (req, res) => {
   try {
     const body = req.body;
@@ -160,6 +164,7 @@ export const updateDetailById = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const removeDetail = async (req, res) => {
   try {
     const { id } = req.params;
@@ -215,6 +220,45 @@ export const remove = async (req, res) => {
     const response = {
       data,
       message: "Xóa sản phẩm thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+// [POST] api/product/create-image
+export const createImage = async (req, res) => {
+  try {
+    const { images, product_id } = req.body;
+    console.log(images);
+    const formImage = images.map((image_url) => ({
+      image_url,
+      product_id,
+    }));
+    const data = await imageModel.insertMany(formImage);
+
+    const response = {
+      data,
+      message: "Tạo hình ảnh thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+// [DELETE] api/product/remove-image/:id
+export const removeImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await imageModel.findByIdAndDelete(id);
+
+    const response = {
+      data,
+      message: "Xóa hình ảnh thành công",
     };
 
     return responseSuccess(res, response);
