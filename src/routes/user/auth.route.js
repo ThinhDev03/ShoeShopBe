@@ -11,6 +11,7 @@ import {
 import verifyToken from "../../middlewares/authenticateToken";
 import checkAuth from "../../middlewares/checkAuth";
 import checkGoogle from "../../middlewares/checkGoogle";
+
 const authRoute = express.Router();
 
 authRoute.get("", getAll);
