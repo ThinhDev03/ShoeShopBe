@@ -28,11 +28,11 @@ export const read = async (req, res) => {
       ...category,
       name: { $regex: search, $options: "i" },
     });
-    const totalPage = Math.ceil(total / limit);
+    const pageSize = Math.ceil(total / limit);
     return res.status(200).json({
       data: product,
       total,
-      totalPage,
+      pageSize,
       currentPage: page,
       message: "Lấy danh sách sản phẩm thành công",
     });
@@ -62,7 +62,7 @@ export const create = async (req, res) => {
     const { images, ...formBody } = body;
     const data = await productRepository.create(formBody);
     if (images) {
-      const formImage = images.map((image_url) => ({
+      const formImage = images.map(({ image_url }) => ({
         image_url,
         product_id: data._id,
       }));
@@ -178,22 +178,25 @@ export const removeDetail = async (req, res) => {
 // [POST] api/product/update/:id
 export const update = async (req, res) => {
   try {
-    const { images, newImages, ...body } = req.body;
+    const { images, ...body } = req.body;
     const { id } = req.params;
     const data = await productRepository.update(id, body);
 
-    const bulkWriteOptions = images.map((scd) => {
-      return {
-        updateOne: {
-          filter: {
-            _id: new mongoose.Types.ObjectId(scd._id),
-          },
-          update: scd,
-          upsert: true,
-        },
-      };
-    });
-    await imageModel.bulkWrite(bulkWriteOptions);
+    const response = {
+      data,
+      message: "Cập nhật sản phẩm thành công",
+    };
+
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+export const deleteThumbnail = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await productRepository.update(id, { thumbnail: "" });
 
     const response = {
       data,
@@ -227,12 +230,42 @@ export const remove = async (req, res) => {
 export const createImage = async (req, res) => {
   try {
     const { images, product_id } = req.body;
-    console.log(images);
-    const formImage = images.map((image_url) => ({
-      image_url,
-      product_id,
-    }));
-    const data = await imageModel.insertMany(formImage);
+    if (typeof images === "string") {
+      //create one
+      const data = await imageModel.create({ image_url: images, product_id });
+      const response = {
+        data,
+        message: "Tạo hình ảnh thành công",
+      };
+
+      return responseSuccess(res, response);
+    } else {
+      //create multiple
+      const formImage = images.map((image_url) => ({
+        image_url,
+        product_id,
+      }));
+      const data = await imageModel.insertMany(formImage);
+
+      const response = {
+        data,
+        message: "Tạo hình ảnh thành công",
+      };
+
+      return responseSuccess(res, response);
+    }
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+export const createOneImage = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const { image_url } = req.body;
+
+    const data = await imageModel.create({ product_id: id, image_url });
 
     const response = {
       data,
@@ -249,14 +282,22 @@ export const createImage = async (req, res) => {
 export const removeImage = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await imageModel.findByIdAndDelete(id);
-
-    const response = {
-      data,
-      message: "Xóa hình ảnh thành công",
-    };
-
-    return responseSuccess(res, response);
+    const hasImage = await productDetailModel.find({ image_id: id });
+    console.log(hasImage);
+    if (hasImage.length === 0) {
+      const data = await imageModel.findByIdAndDelete(id);
+      const response = {
+        data,
+        message: "Xóa hình ảnh thành công",
+      };
+      return responseSuccess(res, response);
+    } else {
+      const error = {
+        message: "Hình ảnh đang được sử dụng",
+        status: 400,
+      };
+      return responseError(res, error);
+    }
   } catch (error) {
     return responseError(res, error);
   }
