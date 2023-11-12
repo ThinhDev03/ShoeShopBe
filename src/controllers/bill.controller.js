@@ -127,7 +127,7 @@ export const getBillDetailById = async (req, res) => {
       product_name: order.product_id.product_id.name,
       price: order.product_id.price,
       size: order.product_id.size_id.size_name,
-      color: order.product_id.color_id.color_name,
+      color: order.product_id.color_id.color_code,
       image: order.product_id.image_id.image_url,
       quantity: order.quantity,
     }));
