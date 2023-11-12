@@ -4,10 +4,11 @@ import cartRepository from "../repositories/cart.repository";
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
+
     const data = await cartRepository.find({ user_id: id });
     let totalMoney = 0;
     const newData = data.map((product) => {
+      console.log(product);
       return {
         cart_id: product._id,
         product_id: product.product_id._id,
@@ -17,7 +18,7 @@ export const getByUserId = async (req, res) => {
         quantity: product.quantity,
         totalQuantity: product.product_id.quantity,
         image: product.product_id.image_id.image_url,
-        color: product.product_id.color_id.color_name,
+        color: product.product_id.color_id.color_code,
         size: product.product_id.size_id.size_name,
       };
     });

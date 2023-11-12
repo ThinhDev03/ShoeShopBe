@@ -46,9 +46,32 @@ export const read = async (req, res) => {
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await billRepository.find({ user_id: id });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const status = req.query.status || "";
+    const perPage = limit * page - limit;
+
+    const filterOptions = {
+      receiver: { $regex: search, $options: "i" },
+      status: { $regex: status, $options: "i" },
+      user_id: id,
+    };
+
+    const bill = await billModel
+      .find(filterOptions)
+      .skip(perPage)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
+    const total = await billRepository.totalRecord(filterOptions);
+    const totalPage = Math.ceil(total / limit);
+
     const response = {
-      data,
+      data: bill,
+      total,
+      totalPage,
+      currentPage: page,
       message: "Lấy danh sách bill thành công",
     };
 
