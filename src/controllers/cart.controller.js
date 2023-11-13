@@ -4,7 +4,6 @@ import cartRepository from "../repositories/cart.repository";
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const data = await cartRepository.find({ user_id: id });
     let totalMoney = 0;
     const newData = data.map((product) => {

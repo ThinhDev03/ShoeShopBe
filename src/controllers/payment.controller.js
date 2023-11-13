@@ -123,7 +123,6 @@ export async function savePayment(req, res, next) {
               //thanh cong
               //paymentStatus = '1'
               // Ở đây cập nhật trạng thái giao dịch thanh toán thành công vào CSDL của bạn
-              console.log("paymentId: ", paymentId);
               await paymentRepository.update(paymentId, { status: "PAID" });
               res.status(200).json({
                 RspCode: "00",

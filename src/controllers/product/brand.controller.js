@@ -58,7 +58,6 @@ export const findOne = async (req, res) => {
     const { id } = req.params;
 
     const data = await brandRepository.findById(id);
-    console.log(data);
     const response = {
       data,
       message: "Lấy brand thành công",

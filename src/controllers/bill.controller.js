@@ -77,7 +77,7 @@ export const getOne = async (req, res) => {
       image: order.product_id.image_id.image_url,
       quantity: order.quantity,
     }));
-    console.log(billDetail);
+
     const response = {
       data,
       billDetail: flatData,

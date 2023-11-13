@@ -10,7 +10,7 @@ export const getByProductId = async (req, res) => {
     const newData = data.map((comment) => {
       return {
         _id: comment._id,
-        user_name: comment.user_id.fullname,
+        user_name: comment.user_id?.fullname,
         description: comment.description,
         rate: comment.rate,
         createdAt: comment.createdAt,

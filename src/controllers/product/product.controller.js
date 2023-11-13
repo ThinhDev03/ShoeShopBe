@@ -283,7 +283,6 @@ export const removeImage = async (req, res) => {
   try {
     const { id } = req.params;
     const hasImage = await productDetailModel.find({ image_id: id });
-    console.log(hasImage);
     if (hasImage.length === 0) {
       const data = await imageModel.findByIdAndDelete(id);
       const response = {
