@@ -46,9 +46,32 @@ export const read = async (req, res) => {
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await billRepository.find({ user_id: id });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const status = req.query.status || "";
+    const perPage = limit * page - limit;
+
+    const filterOptions = {
+      receiver: { $regex: search, $options: "i" },
+      status: { $regex: status, $options: "i" },
+      user_id: id,
+    };
+
+    const bill = await billModel
+      .find(filterOptions)
+      .skip(perPage)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
+    const total = await billRepository.totalRecord(filterOptions);
+    const totalPage = Math.ceil(total / limit);
+
     const response = {
-      data,
+      data: bill,
+      total,
+      totalPage,
+      currentPage: page,
       message: "Lấy danh sách bill thành công",
     };
 
@@ -104,7 +127,7 @@ export const getBillDetailById = async (req, res) => {
       product_name: order.product_id.product_id.name,
       price: order.product_id.price,
       size: order.product_id.size_id.size_name,
-      color: order.product_id.color_id.color_name,
+      color: order.product_id.color_id.color_code,
       image: order.product_id.image_id.image_url,
       quantity: order.quantity,
     }));
