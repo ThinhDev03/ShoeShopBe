@@ -129,16 +129,20 @@ export function savePayment(req, res, next) {
         } else {
           res.status(200).json({
             RspCode: "02",
-            Message: "This order has been updated to the payment status",
+            Message: "Đơn hàng này đã được cập nhật trạng thái thanh toán.",
           });
         }
       } else {
-        res.status(200).json({ RspCode: "04", Message: "Amount invalid" });
+        res
+          .status(200)
+          .json({ RspCode: "04", Message: "Số tiền không hợp lệ." });
       }
     } else {
-      res.status(200).json({ RspCode: "01", Message: "Order not found" });
+      res
+        .status(200)
+        .json({ RspCode: "01", Message: "Không tìm thấy đơn hàng." });
     }
   } else {
-    res.status(200).json({ RspCode: "97", Message: "Checksum failed" });
+    res.status(200).json({ RspCode: "97", Message: "Kiểm tra that bai." });
   }
 }
