@@ -2,9 +2,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
 
-//require database URL from properties file
-// const DB_URL = `mongodb://127.0.0.1:27017/shoeShop`
-const DB_URL = `mongodb+srv://${process.env.USERNAME_DB}:${process.env.PASSWORD_DB}@cluster0.n5vazb1.mongodb.net/?retryWrites=true&w=majority`;
+// require database URL from properties file
+const DB_URL = `mongodb://127.0.0.1:27017/shoeShop`
+// const DB_URL = `mongodb+srv://${process.env.USERNAME_DB}:${process.env.PASSWORD_DB}@cluster0.n5vazb1.mongodb.net/?retryWrites=true&w=majority`;
 
 // const DB_URL =
 //   "mongodb+srv://phamtuan19hd:phamtuan19hd@shoeshopee.jy326ur.mongodb.net/?retryWrites=true&w=majority";
