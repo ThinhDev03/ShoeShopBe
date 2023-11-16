@@ -25,7 +25,7 @@ export function createPayment(req, res, next) {
     const amount = 100000;
     const bankCode = "NCB";
     const orderInfo = "Noi dung thanh toan";
-    const orderType = "billpayment";
+    const orderType = "billpayment ";
     const locale = "vn";
     if (locale === null || locale === "") {
       locale = "vn";
@@ -129,13 +129,13 @@ export function savePayment(req, res, next) {
         } else {
           res.status(200).json({
             RspCode: "02",
-            Message: "Đơn hàng này đã được cập nhật trạng thái thanh toán.",
+            Message: "Đơn hàng này đã được cập nhật trạng thái thanh toán. ",
           });
         }
       } else {
         res
           .status(200)
-          .json({ RspCode: "04", Message: "Số tiền không hợp lệ." });
+          .json({ RspCode: "04", Message: "Số tiền không hợp lệ. " });
       }
     } else {
       res
