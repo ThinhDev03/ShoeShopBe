@@ -47,7 +47,7 @@ export function createPayment(req, res, next) {
     vnp_Params["vnp_CreateDate"] = createDate;
 
     if (bankCode !== null && bankCode !== "") {
-      vnp_Params["vnp_BankCode"] = bankCode;
+      vnp_Params["vnp_BankCode"] = bankCode; 
     }
 
     vnp_Params = sortObject(vnp_Params);
