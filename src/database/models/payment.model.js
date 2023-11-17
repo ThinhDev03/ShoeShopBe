@@ -1,5 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 import mongooseAutoPopulate from "mongoose-autopopulate";
+
 const PaymentSchema = new Schema(
   {
     status: {

@@ -1,6 +1,7 @@
 import querystring from "qs";
 import crypto from "crypto";
 import moment from "moment";
+
 export function createPayment(req, res, next) {
   try {
     const config = {
@@ -129,20 +130,20 @@ export function savePayment(req, res, next) {
         } else {
           res.status(200).json({
             RspCode: "02",
-            Message: "Đơn hàng này đã được cập nhật trạng thái thanh toán. ",
+            Message: "Đơn hàng này đã được cập nhật trạng thái thanh toán",
           });
         }
       } else {
         res
           .status(200)
-          .json({ RspCode: "04", Message: "Số tiền không hợp lệ. " });
+          .json({ RspCode: "04", Message: "Số tiền không hợp lệ" });
       }
     } else {
       res
         .status(200)
-        .json({ RspCode: "01", Message: "Không tìm thấy đơn hàng." });
+        .json({ RspCode: "01", Message: "Không tìm thấy đơn hàng" });
     }
   } else {
-    res.status(200).json({ RspCode: "97", Message: "Kiểm tra that bai." });
+    res.status(200).json({ RspCode: "97", Message: "Kiểm tra thất bại" });
   }
 }
