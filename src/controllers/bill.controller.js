@@ -184,11 +184,13 @@ export const update = async (req, res) => {
     const { products, payment_id, payment_status, ...formBody } = body;
     const data = await billRepository.update(id, formBody);
 
-    const billDetails = products.map((product) => ({
-      bill_id: data.id,
-      ...product,
-    }));
-
+    if (products) {
+      const billDetails = products.map((product) => ({
+        bill_id: data.id,
+        ...product,
+      }));
+      await billDetailRepository.saveMultiple(billDetails);
+    }
     await paymentRepository.update(payment_id, { status: payment_status });
 
     // if PACKING subtraction quantity in product detail
@@ -205,7 +207,7 @@ export const update = async (req, res) => {
         );
       });
     }
-    await billDetailRepository.saveMultiple(billDetails);
+
     const response = {
       data,
       message: "Cập nhật bill thành công",

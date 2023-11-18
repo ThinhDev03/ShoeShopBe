@@ -12,7 +12,6 @@ export const getByUserId = async (req, res) => {
     const data = await cartRepository.find({ user_id: id });
     let totalMoney = 0;
     const newData = data.map((product) => {
-      console.log(product);
       return {
         cart_id: product._id,
         product_id: product.product_id._id,
