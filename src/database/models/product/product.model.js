@@ -11,14 +11,19 @@ const ProductSchema = new Schema(
       type: String,
       required: true,
     },
+    max_sale: {
+      type: Number,
+    },
     brand_id: {
       type: mongoose.Types.ObjectId,
       ref: "brand",
+      required: true,
       autopopulate: { select: "brand_name" },
     },
     category_id: {
       type: mongoose.Types.ObjectId,
       ref: "category",
+      required: true,
       autopopulate: { select: "category_name" },
     },
     thumbnail: {

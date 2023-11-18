@@ -7,6 +7,7 @@ productRoute.post("/update/:id", productController.update);
 productRoute.put("/delete-thumbnail/:id", productController.deleteThumbnail);
 productRoute.delete("/remove/:id", productController.remove);
 productRoute.get("/", productController.read);
+productRoute.get("/get-sale", productController.getSaleProduct);
 productRoute.get("/:id", productController.getBuyId);
 productRoute.get("/images/:id", productController.getImageByProduct);
 

@@ -181,15 +181,18 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const { products, ...formBody } = body;
+    const { products, payment_id, payment_status, ...formBody } = body;
     const data = await billRepository.update(id, formBody);
 
     const billDetails = products.map((product) => ({
       bill_id: data.id,
       ...product,
     }));
-    // if received subtraction quantity in product detail
-    if (formBody.status === "RECEIVED") {
+
+    await paymentRepository.update(payment_id, { status: payment_status });
+
+    // if PACKING subtraction quantity in product detail
+    if (formBody.status === "PACKING") {
       products.forEach(async (product) => {
         const currentProduct = await productDetailModel.findById(
           product.product_id
