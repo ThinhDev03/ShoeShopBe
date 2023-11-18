@@ -1,10 +1,14 @@
 import { responseError, responseSuccess } from "../helpers/response";
 import cartRepository from "../repositories/cart.repository";
+import productDetail from "../database/models/product/product-detail.model";
+import { json } from "express";
+import { STATUS } from "../configs/status";
+
+const MAX_QUANTITY = 5;
 
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(id);
     const data = await cartRepository.find({ user_id: id });
     let totalMoney = 0;
     const newData = data.map((product) => {
@@ -17,7 +21,7 @@ export const getByUserId = async (req, res) => {
         quantity: product.quantity,
         totalQuantity: product.product_id.quantity,
         image: product.product_id.image_id.image_url,
-        color: product.product_id.color_id.color_name,
+        color: product.product_id.color_id.color_code,
         size: product.product_id.size_id.size_name,
       };
     });
@@ -40,9 +44,36 @@ export const create = async (req, res) => {
     const body = req.body;
     const product_id = body.product_id;
     const hasCart = await cartRepository.findOne({ product_id });
+    const dataDetail = await productDetail.findOne({ _id: product_id });
     let data;
-    if (hasCart) {
+
+    if (hasCart && dataDetail) {
+      const detailQuanity = dataDetail.quantity;
+      if (hasCart.quantity === MAX_QUANTITY) {
+        const response = {
+          data,
+          message: "Số lượng trong giỏ hàng đã đạt tới giới hạn cho phép.",
+        };
+
+        return res.status(STATUS.BAD_REQUEST).send(response);
+      }
+
+      if (detailQuanity < MAX_QUANTITY && body.quantity > detailQuanity) {
+        return res.status(STATUS.BAD_REQUEST).send({
+          data,
+          message: "Số lượng trong giỏ hàng lớn hơn số lượng hàng trong kho.",
+        });
+      }
+
       const quantity = body.quantity + hasCart.quantity;
+
+      if (quantity > 5) {
+        return res.status(STATUS.BAD_REQUEST).send({
+          data,
+          message: "Số lượng trong giỏ hàng đã đạt tới giới hạn cho phép.",
+        });
+      }
+
       data = await cartRepository.updateCart(product_id, { quantity });
     } else {
       data = await cartRepository.create(body);

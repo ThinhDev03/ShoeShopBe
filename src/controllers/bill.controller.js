@@ -27,12 +27,12 @@ export const read = async (req, res) => {
       .limit(limit)
       .sort({ createdAt: -1 });
     const total = await billRepository.totalRecord(filterOptions);
-    const totalPage = Math.ceil(total/limit);
+    const pageSize = Math.ceil(total / limit);
 
     const response = {
       data: bill,
       total,
-      totalPage,
+      pageSize,
       currentPage: page,
       message: "Lấy danh sách hóa đơn thành công ",
     };
@@ -46,10 +46,33 @@ export const read = async (req, res) => {
 export const getByUserId = async (req, res) => {
   try {
     const { id } = req.params;
-    const data = await billRepository.find({ user_id: id });
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 10;
+    const search = req.query.search || "";
+    const status = req.query.status || "";
+    const perPage = limit * page - limit;
+
+    const filterOptions = {
+      receiver: { $regex: search, $options: "i" },
+      status: { $regex: status, $options: "i" },
+      user_id: id,
+    };
+
+    const bill = await billModel
+      .find(filterOptions)
+      .skip(perPage)
+      .limit(limit)
+      .sort({ createdAt: -1 });
+
+    const total = await billRepository.totalRecord(filterOptions);
+    const totalPage = Math.ceil(total / limit);
+
     const response = {
-      data,
-      message: "Lấy danh sách hóa đơn thành công",
+      data: bill,
+      total,
+      totalPage,
+      currentPage: page,
+      message: "Lấy danh sách bill thành công",
     };
 
     return responseSuccess(res, response);
@@ -77,7 +100,7 @@ export const getOne = async (req, res) => {
       image: order.product_id.image_id.image_url,
       quantity: order.quantity,
     }));
-    console.log(billDetail);
+
     const response = {
       data,
       billDetail: flatData,
@@ -104,7 +127,7 @@ export const getBillDetailById = async (req, res) => {
       product_name: order.product_id.product_id.name,
       price: order.product_id.price,
       size: order.product_id.size_id.size_name,
-      color: order.product_id.color_id.color_name,
+      color: order.product_id.color_id.color_code,
       image: order.product_id.image_id.image_url,
       quantity: order.quantity,
     }));
@@ -158,15 +181,20 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const { products, ...formBody } = body;
+    const { products, payment_id, payment_status, ...formBody } = body;
     const data = await billRepository.update(id, formBody);
 
-    const billDetails = products.map((product) => ({
-      bill_id: data.id,
-      ...product,
-    }));
-    // if received subtraction quantity in product detail
-    if (formBody.status === "RECEIVED") {
+    if (products) {
+      const billDetails = products.map((product) => ({
+        bill_id: data.id,
+        ...product,
+      }));
+      await billDetailRepository.saveMultiple(billDetails);
+    }
+    await paymentRepository.update(payment_id, { status: payment_status });
+
+    // if PACKING subtraction quantity in product detail
+    if (formBody.status === "PACKING") {
       products.forEach(async (product) => {
         const currentProduct = await productDetailModel.findById(
           product.product_id
@@ -179,7 +207,7 @@ export const update = async (req, res) => {
         );
       });
     }
-    await billDetailRepository.saveMultiple(billDetails);
+
     const response = {
       data,
       message: "Cập nhật hóa đơn thành công",

@@ -36,7 +36,7 @@ const BillSchema = new Schema(
     payment_id: {
       type: mongoose.Types.ObjectId,
       ref: "payment",
-      autopopulate: { select: "status payment_method" },
+      autopopulate: { select: "_id status payment_method" },
     },
   },
   {
