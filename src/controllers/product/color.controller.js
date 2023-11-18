@@ -8,7 +8,7 @@ export const read = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh sách color thành công",
+      message: "Lấy danh sách màu thành công",
     };
 
     return responseSuccess(res, response);
@@ -21,11 +21,11 @@ export const read = async (req, res) => {
 export const create = async (req, res) => {
   try {
     const body = req.body;
-    const data = await colorRepository.create(body);
+    const data = await colorRepository.create( body );
 
     const response = {
       data,
-      message: "Tạo color thành công",
+      message: "Tạo màu thành công",
     };
 
     return responseSuccess(res, response);
@@ -39,11 +39,11 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const data = await colorRepository.update(id, body);
+    const data = await colorRepository.update( id, body );
 
     const response = {
       data,
-      message: "Cập nhật color thành công",
+      message: "Cập nhật màu thành công",
     };
 
     return responseSuccess(res, response);
@@ -57,7 +57,7 @@ export const findOne = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await colorRepository.findById(id);
+    const data = await colorRepository.findById( id );
 
     const response = {
       data,
@@ -78,7 +78,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa color thành công",
+      message: "Xóa màu thành công",
     };
 
     return responseSuccess(res, response);

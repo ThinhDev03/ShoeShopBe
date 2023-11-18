@@ -19,6 +19,7 @@ const CommentSchema = new Schema(
     },
     rate: {
       type: Number,
+      enum: [1, 2, 3, 4, 5],
       required: true,
     },
   },

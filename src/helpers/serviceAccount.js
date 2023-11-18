@@ -4,6 +4,7 @@ const serviceAccount = require("./mhduongtest2-firebase-adminsdk-figsf-6979777f1
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://mhduongtest2-default-rtdb.firebaseio.com"
+  databaseURL: "https://mhduongtest2-default-rtdb.firebaseio.com",
 });
-export default admin
+
+export default admin;

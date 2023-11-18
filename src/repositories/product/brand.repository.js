@@ -7,4 +7,4 @@ class BrandRepository extends BaseRepository {
   }
 }
 
-export default new BrandRepository({ model: brandModel });
+export default new BrandRepository({model: brandModel});

@@ -17,19 +17,20 @@ export const responseError = (res, error) => {
     // Case just string
     if (typeof error.error === "string") {
       const message = error.error;
-      return res.status(status).send({ message, data: null });
+      return res.status(status).send({ message, data: null, success: false });
     }
     // Case error is object
     return res.status(status).send({
       message: "lỗi",
       data: null,
+      success: false,
     });
   }
   return res
     .status(STATUS.INTERNAL_SERVER_ERROR)
-    .send({ message: error.message, data: null });
+    .send({ message: error.message, data: null, success: false });
 };
 
 export const responseSuccess = (res, data) => {
-  return res.status(STATUS.OK).send(data);
+  return res.status(STATUS.OK).send({ success: true, ...data });
 };

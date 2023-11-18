@@ -11,7 +11,7 @@ const CartSchema = new Schema(
     product_id: {
       type: mongoose.Types.ObjectId,
       ref: "productDetail",
-      autopopulate: { select: "_id price product_id" },
+      autopopulate: { select: "_id price product_id sale quantity" },
     },
     quantity: {
       type: Number,
@@ -23,6 +23,6 @@ const CartSchema = new Schema(
   }
 );
 
-CartSchema.plugin(mongooseAutoPopulate);
 
+CartSchema.plugin(mongooseAutoPopulate);
 export default mongoose.model("cart", CartSchema);

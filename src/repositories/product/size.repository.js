@@ -7,4 +7,4 @@ class SizeRepository extends BaseRepository {
   }
 }
 
-export default new SizeRepository({ model: sizeModel });
+export default new SizeRepository({model: sizeModel});

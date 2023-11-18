@@ -2,7 +2,6 @@ import mongoose, { Schema } from "mongoose";
 import mongooseAutoPopulate from "mongoose-autopopulate";
 
 const BillSchema = new Schema(
-
   {
     user_id: {
       type: mongoose.Types.ObjectId,
@@ -18,7 +17,6 @@ const BillSchema = new Schema(
       enum: ["PENDING", "PACKING", "TRANSPORT", "RECEIVED", "CANCELED"],
       required: true,
       default: "PENDING",
-
     },
     receiver: {
       type: String,
@@ -30,7 +28,6 @@ const BillSchema = new Schema(
     },
     note: {
       type: String,
-      required: true,
     },
     total_money: {
       type: Number,
@@ -39,15 +36,13 @@ const BillSchema = new Schema(
     payment_id: {
       type: mongoose.Types.ObjectId,
       ref: "payment",
-      autopopulate: { select: "status payment_method" },
+      autopopulate: { select: "_id status payment_method" },
     },
   },
   {
     timestamps: true,
   }
 );
-
 BillSchema.plugin(mongooseAutoPopulate);
 
 export default mongoose.model("bill", BillSchema);
-
