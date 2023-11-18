@@ -34,7 +34,7 @@ export const read = async (req, res) => {
       total,
       pageSize,
       currentPage: page,
-      message: "Lấy danh sách bill thành công",
+      message: "Lấy danh sách hóa đơn thành công ",
     };
 
     return responseSuccess(res, response);
@@ -104,7 +104,7 @@ export const getOne = async (req, res) => {
     const response = {
       data,
       billDetail: flatData,
-      message: "Lấy danh sách bill thành công",
+      message: "Lấy danh sách hoá đơn thành công",
     };
 
     return responseSuccess(res, response);
@@ -133,7 +133,7 @@ export const getBillDetailById = async (req, res) => {
     }));
     const response = {
       data: flatData,
-      message: "Lấy danh sách bill thành công",
+      message: "Lấy danh sách hóa đơn thành công",
     };
     return responseSuccess(res, response);
   } catch (error) {
@@ -210,7 +210,7 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật bill thành công",
+      message: "Cập nhật hóa đơn thành công",
     };
 
     return responseSuccess(res, response);
@@ -226,7 +226,7 @@ export const updateStatus = async (req, res) => {
     const data = await billRepository.update(id, body);
     const response = {
       data,
-      message: "Cập nhật bill thành công",
+      message: "Cập nhật hoá đơn thành công",
     };
     return responseSuccess(res, response);
   } catch (error) {

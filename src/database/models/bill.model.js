@@ -43,7 +43,6 @@ const BillSchema = new Schema(
     timestamps: true,
   }
 );
-
 BillSchema.plugin(mongooseAutoPopulate);
 
 export default mongoose.model("bill", BillSchema);

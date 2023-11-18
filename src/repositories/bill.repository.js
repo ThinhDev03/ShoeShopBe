@@ -10,4 +10,4 @@ class BillRepository extends BaseRepository {
   }
 }
 
-export default new BillRepository({ model: billModel });
+export default new BillRepository({ model:billModel });

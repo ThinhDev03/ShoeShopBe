@@ -8,7 +8,7 @@ export const read = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh sách danh mục thành công",
+      message: "Lấy danh sách danh mục thành công ",
     };
 
     return responseSuccess(res, response);
@@ -25,7 +25,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo danh mục thành công",
+      message: "Tạo danh mục thành công ",
     };
 
     return responseSuccess(res, response);
@@ -61,7 +61,7 @@ export const findOne = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy danh mục thành công.",
+      message: "Lấy danh mục thành công ",
     };
 
     return responseSuccess(res, response);
@@ -69,6 +69,7 @@ export const findOne = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 
 // [DELETE] api/category/remove/:id
 export const remove = async (req, res) => {
@@ -78,10 +79,10 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa danh mục thành công",
+      message: "Xóa danh mục thành công ",
     };
-
     return responseSuccess(res, response);
+
   } catch (error) {
     return responseError(res, error);
   }

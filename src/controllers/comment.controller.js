@@ -18,12 +18,13 @@ export const getByProductId = async (req, res) => {
     });
     const response = {
       data: newData,
-      message: "Lấy danh sách comment thành công",
+      message: "Lấy danh sách bình luận thành công",
     };
 
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
+
   }
 };
 // [POST] api/comment/:id
@@ -35,8 +36,9 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo comment thành công",
+      message: "Tạo bình luận thành công ",
     };
+
 
     return responseSuccess(res, response);
   } catch (error) {
@@ -53,10 +55,10 @@ export const update = async (req, res) => {
 
     const response = {
       data,
-      message: "Cập nhật comment thành công",
+      message: "Cập nhật bình luận thành công ",
     };
-
     return responseSuccess(res, response);
+
   } catch (error) {
     return responseError(res, error);
   }
@@ -70,7 +72,7 @@ export const remove = async (req, res) => {
 
     const response = {
       data,
-      message: "Xóa comment thành công",
+      message: "Xóa bình luận thành công ",
     };
 
     return responseSuccess(res, response);

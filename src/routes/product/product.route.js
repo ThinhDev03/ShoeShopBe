@@ -13,7 +13,7 @@ productRoute.get("/images/:id", productController.getImageByProduct);
 
 //detail
 productRoute.post("/create-detail", productController.createDetail);
-productRoute.post("/update-detail/:id", productController.updateDetailById);
+productRoute.post("/update-detail", productController.updateDetailById);
 productRoute.get("/detail/:id", productController.getDetailById);
 productRoute.delete("/remove-detail/:id", productController.removeDetail);
 

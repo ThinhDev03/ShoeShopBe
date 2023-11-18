@@ -43,12 +43,13 @@ export const read = async (req, res) => {
       total,
       pageSize,
       currentPage: page,
-      message: "Lấy danh sách sản phẩm thành công",
+      message: "Lấy danh sách sản phẩm thành công ",
     });
   } catch (error) {
     return responseError(res, error);
   }
 };
+
 export const getBuyId = async (req, res) => {
   try {
     const { id } = req.params;
@@ -56,7 +57,7 @@ export const getBuyId = async (req, res) => {
 
     const response = {
       data,
-      message: "Lấy sản phẩm thành công",
+      message: "Lấy sản phẩm thành công ",
     };
 
     return responseSuccess(res, response);
@@ -64,6 +65,7 @@ export const getBuyId = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 // [POST] api/product/create
 export const create = async (req, res) => {
   try {
@@ -80,7 +82,7 @@ export const create = async (req, res) => {
 
     const response = {
       data,
-      message: "Tạo sản phẩm thành công",
+      message: "Tạo sản phẩm thành công ",
     };
 
     return responseSuccess(res, response);
@@ -120,7 +122,7 @@ export const createDetail = async (req, res) => {
     });
     const response = {
       data,
-      message: "Tạo sản phẩm thành công",
+      message: "Tạo sản phẩm thành công ",
     };
     return responseSuccess(res, response);
   } catch (error) {
@@ -143,6 +145,7 @@ export const getImageByProduct = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const getDetailById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -158,6 +161,7 @@ export const getDetailById = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const updateDetailById = async (req, res) => {
   try {
     const body = req.body;
@@ -183,6 +187,7 @@ export const updateDetailById = async (req, res) => {
     return responseError(res, error);
   }
 };
+
 export const removeDetail = async (req, res) => {
   try {
     const { id } = req.params;

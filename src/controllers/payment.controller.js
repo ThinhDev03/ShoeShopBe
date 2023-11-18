@@ -27,14 +27,8 @@ export function createPayment(req, res, next) {
     // const amount = 100000;
     // const bankCode = "ACB";
     const orderInfo = "Noi dung thanh toan";
-    const orderType = "billpayment";
+    const orderType = "billpayment ";
     const locale = "vn";
-    // const amount = req.body.amount;
-    // const bankCode = req.body.bankCode;
-
-    // const orderInfo = req.body.orderDescription;
-    // const orderType = req.body.orderType;
-    // const locale = req.body.language;
     if (locale === null || locale === "") {
       locale = "vn";
     }
@@ -62,6 +56,7 @@ export function createPayment(req, res, next) {
     const signData = querystring.stringify(vnp_Params, { encode: false });
     const hmac = crypto.createHmac("sha512", secretKey);
     const signed = hmac.update(new Buffer(signData, "utf-8")).digest("hex");
+
     vnp_Params["vnp_SecureHash"] = signed;
     vnpUrl += "?" + querystring.stringify(vnp_Params, { encode: false });
 
@@ -75,12 +70,14 @@ function sortObject(obj) {
   let sorted = {};
   let str = [];
   let key;
+
   for (key in obj) {
     if (obj.hasOwnProperty(key)) {
       str.push(encodeURIComponent(key));
     }
   }
   str.sort();
+
   for (key = 0; key < str.length; key++) {
     sorted[str[key]] = encodeURIComponent(obj[str[key]]).replace(/%20/g, "+");
   }

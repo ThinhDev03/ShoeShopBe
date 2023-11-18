@@ -1,6 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt";
 
+
 const UserSchema = new Schema(
   {
     email: {
@@ -54,6 +55,7 @@ UserSchema.pre("save", function (next) {
   this.password = this.bcryptPassword(this.password);
   next();
 });
+
 UserSchema.methods = {
   bcryptPassword(password) {
     if (!password) return "";

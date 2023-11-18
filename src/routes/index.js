@@ -7,7 +7,7 @@ const routes = [
   { ...userRoutes },
   { ...commonRoutes },
   { ...adminRoutes },
-  { ...productRoutes },
+  { ...productRoutes }
+
 ];
 export default routes;
-
