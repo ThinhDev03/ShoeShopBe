@@ -66,7 +66,7 @@ export const create = async (req, res) => {
     const { images, ...formBody } = body;
     const data = await productRepository.create({ ...formBody, max_sale: 0 });
     if (images) {
-      const formImage = images.map(({ image_url }) => ({
+      const formImage = images.map((image_url) => ({
         image_url,
         product_id: data._id,
       }));
@@ -326,7 +326,9 @@ export const removeImage = async (req, res) => {
 export const getSaleProduct = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 16;
-    const product = await productModel.find({ max_sale: { $gt: 0 } }).limit(limit);
+    const product = await productModel
+      .find({ max_sale: { $gt: 0 } })
+      .limit(limit);
 
     const response = {
       data: product,
