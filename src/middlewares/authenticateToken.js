@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
+import UserSchema from "../database/models/user.model";
 
-const verifyToken = (req, res, next) => {
+const verifyToken = async (req, res, next) => {
   try {
     const authHeader = req.headers["authorization"];
     if (!authHeader) {
@@ -12,12 +13,16 @@ const verifyToken = (req, res, next) => {
       return res.status(400);
     }
 
-    jwt.verify(token, process.env.SECRETKEY, (err, user) => {
+    jwt.verify(token, process.env.SECRETKEY, async (err, user) => {
       if (err) {
         return res.status(400).json({ message: "token wrong" });
       }
       const getUser = user._doc;
-      const { password, ...data } = getUser;
+      
+      const dataGetDB = await UserSchema.findOne({ _id: getUser._id });
+      
+      const { password, ...data } = dataGetDB._doc;
+
       return res.status(200).json({ data });
     });
   } catch (error) {
