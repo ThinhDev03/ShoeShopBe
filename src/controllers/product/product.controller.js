@@ -30,16 +30,9 @@ export const read = async (req, res) => {
       name: { $regex: search, $options: "i" },
     });
     const pageSize = Math.ceil(total / limit);
-    const sales = [0, 20, 40];
-    const newProduct = product.map((p) => {
-      const randomIndex = Math.floor(Math.random() * sales.length);
-      return {
-        sale: sales[randomIndex],
-        ...p,
-      };
-    });
+   
     return res.status(200).json({
-      data: newProduct,
+      data: product,
       total,
       pageSize,
       currentPage: page,
