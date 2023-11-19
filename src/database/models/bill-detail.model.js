@@ -6,7 +6,7 @@ const OrderDetailSchema = new Schema(
     bill_id: {
       type: mongoose.Types.ObjectId,
       ref: "bill",
-      autopopulate: { select: "_id" },
+      autopopulate: { select: "_id status" },
       required: true,
     },
     product_id: {
