@@ -224,6 +224,21 @@ export const updateStatus = async (req, res) => {
     const { id } = req.params;
     const body = req.body;
     const data = await billRepository.update(id, body);
+
+    const billDetail = await billDetailRepository.find({ bill_id: id });
+
+    billDetail.forEach(async (product) => {
+      const currentProduct = await productDetailModel.findById(
+        product.product_id
+      );
+      const quantity = currentProduct.quantity - product.quantity;
+      await productDetailModel.findByIdAndUpdate(
+        product.product_id,
+        { quantity },
+        { new: true }
+      );
+    });
+
     const response = {
       data,
       message: "Cập nhật hoá đơn thành công",
