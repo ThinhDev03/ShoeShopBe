@@ -50,11 +50,6 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.pre("save", function (next) {
-  this.password = this.bcryptPassword(this.password);
-  next();
-});
-
 UserSchema.methods = {
   bcryptPassword(password) {
     if (!password) return "";
@@ -64,5 +59,11 @@ UserSchema.methods = {
     return bcrypt.compareSync(password, this.password);
   },
 };
+
+UserSchema.pre("save", function (next) {
+  this.password = this.bcryptPassword(this.password);
+  next();
+});
+
 
 export default mongoose.model("users", UserSchema);
