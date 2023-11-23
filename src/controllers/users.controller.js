@@ -1,7 +1,7 @@
 import Auth from "../database/models/user.model";
 import Joi from "joi";
 import { responseError, responseSuccess } from "../helpers/response";
-
+import bcrypt from "bcrypt";
 const login = async (req, res) => {
   try {
     res.status(200).json({ message: "Login success", error });
@@ -40,7 +40,15 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const data = await Auth.findByIdAndUpdate(id, body, { new: true });
+    let newBody = body;
+    if (body?.password) {
+      const password = bcrypt.hashSync(body.password, 10);
+      newBody = {
+        ...body,
+        password,
+      };
+    }
+    const data = await Auth.findByIdAndUpdate(id, newBody, { new: true });
 
     const response = {
       data,
