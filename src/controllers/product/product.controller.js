@@ -30,7 +30,7 @@ export const read = async (req, res) => {
       name: { $regex: search, $options: "i" },
     });
     const pageSize = Math.ceil(total / limit);
-   
+
     return res.status(200).json({
       data: product,
       total,
@@ -96,10 +96,10 @@ export const createDetail = async (req, res) => {
     });
     let max_sale;
     if (body.length === 1 && body.length !== 0) {
-      max_sale = body[0].sale;
+      max_sale = parseFloat(body[0].sale);
     } else {
       max_sale = body.reduce((maxElement, currentElement) => {
-        return currentElement.sale > maxElement.sale
+        return parseFloat(currentElement.sale) > parseFloat(maxElement.sale)
           ? currentElement
           : maxElement;
       }, body[0]);
@@ -111,7 +111,7 @@ export const createDetail = async (req, res) => {
     await productRepository.update(product_id, {
       fromPrice,
       toPrice,
-      max_sale: parseFloat(max_sale),
+      max_sale,
     });
     const response = {
       data,
@@ -169,17 +169,30 @@ export const updateDetailById = async (req, res) => {
         },
       };
     });
+
     const data = await productDetailModel.bulkWrite(bulkWriteOptions);
     const listDetail = await productDetailModel.find({
       product_id: body[0].product_id,
     });
 
-    
     listDetail.sort((a, b) => a.price - b.price);
     const fromPrice = listDetail[0].price;
     const toPrice = listDetail[listDetail.length - 1].price;
-
-    await productRepository.update(body[0].product_id, { fromPrice, toPrice });
+    let max_sale;
+    if (body.length === 1 && body.length !== 0) {
+      max_sale = parseFloat(body[0].sale);
+    } else {
+      max_sale = body.reduce((maxElement, currentElement) => {
+        return parseFloat(currentElement.sale) > parseFloat(maxElement.sale)
+          ? currentElement.sale
+          : maxElement;
+      }, body[0]);
+    }
+    await productRepository.update(body[0].product_id, {
+      fromPrice,
+      toPrice,
+      max_sale,
+    });
 
     const response = {
       data,
