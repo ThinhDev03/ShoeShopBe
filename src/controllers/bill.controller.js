@@ -206,6 +206,18 @@ export const update = async (req, res) => {
           { new: true }
         );
       });
+    } else if (formBody.status === "CANCELED") {
+      products.forEach(async (product) => {
+        const currentProduct = await productDetailModel.findById(
+          product.product_id
+        );
+        const quantity = currentProduct.quantity + product.quantity;
+        await productDetailModel.findByIdAndUpdate(
+          product.product_id,
+          { quantity },
+          { new: true }
+        );
+      });
     }
 
     const response = {
