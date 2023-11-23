@@ -48,33 +48,45 @@ export const create = async (req, res) => {
     let data;
 
     if (hasCart && dataDetail) {
-      const detailQuanity = dataDetail.quantity;
+      const detailQuantity = dataDetail.quantity;
       if (hasCart.quantity === MAX_QUANTITY) {
+        console.log(1);
         const response = {
-          data,
+          data: null,
           message: "Số lượng trong giỏ hàng đã đạt tới giới hạn cho phép.",
         };
-
         return res.status(STATUS.BAD_REQUEST).send(response);
       }
 
-      if (detailQuanity < MAX_QUANTITY && body.quantity > detailQuanity) {
+      if (detailQuantity <= MAX_QUANTITY) {
+        if (body.quantity > detailQuantity) {
+          return res.status(STATUS.BAD_REQUEST).send({
+            data: null,
+            message: "Số lượng trong giỏ hàng lớn hơn số lượng hàng trong kho.",
+          });
+        }
+      }
+
+      const totalQuantity = body.quantity + hasCart.quantity;
+      if (totalQuantity > detailQuantity) {
         return res.status(STATUS.BAD_REQUEST).send({
-          data,
-          message: "Số lượng trong giỏ hàng lớn hơn số lượng hàng trong kho.",
+          data: null,
+          message: "Số lượng trong giỏ hàng vượt quá số lượng trong kho.",
         });
       }
 
-      const quantity = body.quantity + hasCart.quantity;
-
-      if (quantity > 5) {
+      if (totalQuantity > MAX_QUANTITY) {
+        console.log(3);
         return res.status(STATUS.BAD_REQUEST).send({
-          data,
+          data: null,
           message: "Số lượng trong giỏ hàng đã đạt tới giới hạn cho phép.",
         });
       }
 
-      data = await cartRepository.updateCart(product_id, { quantity });
+      // Nếu không có điều kiện nào ngăn cản, cập nhật giỏ hàng
+      data = await cartRepository.updateCart(product_id, {
+        quantity: totalQuantity,
+      });
     } else {
       data = await cartRepository.create(body);
     }

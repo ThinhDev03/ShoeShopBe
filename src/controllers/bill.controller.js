@@ -92,7 +92,7 @@ export const getOne = async (req, res) => {
       _id: order._id,
       bill_id: order.bill_id._id,
       createdAt: order.createdAt,
-      productDetail_id: order.product_id.product_id._id,
+      productDetail_id: order.product_id._id,
       product_name: order.product_id.product_id.name,
       price: order.product_id.price,
       size: order.product_id.size_id.size_name,
@@ -123,7 +123,7 @@ export const getBillDetailById = async (req, res) => {
       _id: order._id,
       bill_id: order.bill_id._id,
       createdAt: order.createdAt,
-      productDetail_id: order.product_id.product_id._id,
+      productDetail_id: order.product_id._id,
       product_name: order.product_id.product_id.name,
       price: order.product_id.price,
       size: order.product_id.size_id.size_name,
@@ -184,7 +184,7 @@ export const update = async (req, res) => {
     const { products, payment_id, payment_status, ...formBody } = body;
     const data = await billRepository.update(id, formBody);
 
-    if (products) {
+    if (products && !formBody?.status) {
       const billDetails = products.map((product) => ({
         bill_id: data.id,
         ...product,
@@ -197,11 +197,24 @@ export const update = async (req, res) => {
     if (formBody.status === "PACKING") {
       products.forEach(async (product) => {
         const currentProduct = await productDetailModel.findById(
-          product.product_id
+          product.productDetail_id
         );
-        const quantity = currentProduct.quantity - product.quantity;
+        const quantity = currentProduct?.quantity - product?.quantity;
         await productDetailModel.findByIdAndUpdate(
-          product.product_id,
+          product.productDetail_id,
+          { quantity },
+          { new: true }
+        );
+      });
+    } else if (formBody.status === "CANCELED") {
+      products.forEach(async (product) => {
+        const currentProduct = await productDetailModel.findById(
+          product.productDetail_id
+        );
+        console.log("currentProduct: ", currentProduct);
+        const quantity = currentProduct?.quantity + product?.quantity;
+        await productDetailModel.findByIdAndUpdate(
+          product.productDetail_id,
           { quantity },
           { new: true }
         );
@@ -224,6 +237,21 @@ export const updateStatus = async (req, res) => {
     const { id } = req.params;
     const body = req.body;
     const data = await billRepository.update(id, body);
+
+    const billDetail = await billDetailRepository.find({ bill_id: id });
+
+    billDetail.forEach(async (product) => {
+      const currentProduct = await productDetailModel.findById(
+        product.product_id
+      );
+      const quantity = currentProduct.quantity - product.quantity;
+      await productDetailModel.findByIdAndUpdate(
+        product.product_id,
+        { quantity },
+        { new: true }
+      );
+    });
+
     const response = {
       data,
       message: "Cập nhật hoá đơn thành công",

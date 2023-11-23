@@ -33,7 +33,7 @@ export const getBestSellerProduct = async (req, res) => {
     data.forEach((p) => {
       const product_id = p?.product_id?._id;
 
-      if (product_id && p.quantity) {
+      if (product_id && p.quantity && p?.bill_id?.status === "RECEIVED") {
         const newProduct = {
           product_id: product_id,
           quantity: p.quantity,
@@ -122,19 +122,24 @@ export const getRevenue = async (req, res) => {
     const [bill, billDetail, total_user, total_bill] = await Promise.all([
       billModel.find({
         createdAt,
+        status: "RECEIVED",
       }),
       billDetailModel.find({
         createdAt,
       }),
-      authModel.countDocuments(),
-      billModel.countDocuments(),
+      authModel.countDocuments({ role: "USER" }),
+      billModel.countDocuments({ status: "RECEIVED" }),
     ]);
 
     const total_money = bill.reduce((init, current) => {
       return (init += current.total_money);
     }, 0);
 
-    const sellerQuantity = billDetail.reduce((init, current) => {
+    const billDetailReceived = billDetail.filter((d) => {
+      if (d?.bill_id?.status === "RECEIVED") return true;
+    });
+
+    const sellerQuantity = billDetailReceived.reduce((init, current) => {
       if (current?.quantity && current?.product_id?._id) {
         return (init += parseInt(current.quantity));
       } else return (init += 0);
@@ -156,7 +161,7 @@ export const getRevenue = async (req, res) => {
 
 export const getRevenueWithYear = async (req, res) => {
   try {
-    const data = await billModel.find();
+    const data = await billModel.find({ status: "RECEIVED" });
     const map = new Map();
     data.forEach((p) => {
       const date = new Date(p.createdAt);
@@ -190,7 +195,10 @@ export const getRevenueWithYear = async (req, res) => {
 
 export const getAllRevenue = async (req, res) => {
   try {
-    const data = await billModel.find().sort({ createdAt: -1 }).lean();
+    const data = await billModel
+      .find({ status: "RECEIVED" })
+      .sort({ createdAt: -1 })
+      .lean();
     const newData = [];
     data.forEach((p) => {
       const date = new Date(p.createdAt);

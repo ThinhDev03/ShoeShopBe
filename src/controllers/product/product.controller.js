@@ -30,16 +30,9 @@ export const read = async (req, res) => {
       name: { $regex: search, $options: "i" },
     });
     const pageSize = Math.ceil(total / limit);
-    const sales = [0, 20, 40];
-    const newProduct = product.map((p) => {
-      const randomIndex = Math.floor(Math.random() * sales.length);
-      return {
-        sale: sales[randomIndex],
-        ...p,
-      };
-    });
+
     return res.status(200).json({
-      data: newProduct,
+      data: product,
       total,
       pageSize,
       currentPage: page,
@@ -73,7 +66,7 @@ export const create = async (req, res) => {
     const { images, ...formBody } = body;
     const data = await productRepository.create({ ...formBody, max_sale: 0 });
     if (images) {
-      const formImage = images.map(({ image_url }) => ({
+      const formImage = images.map((image_url) => ({
         image_url,
         product_id: data._id,
       }));
@@ -103,10 +96,10 @@ export const createDetail = async (req, res) => {
     });
     let max_sale;
     if (body.length === 1 && body.length !== 0) {
-      max_sale = body[0].sale;
+      max_sale = parseFloat(body[0].sale);
     } else {
       max_sale = body.reduce((maxElement, currentElement) => {
-        return currentElement.sale > maxElement.sale
+        return parseFloat(currentElement.sale) > parseFloat(maxElement.sale)
           ? currentElement
           : maxElement;
       }, body[0]);
@@ -118,7 +111,7 @@ export const createDetail = async (req, res) => {
     await productRepository.update(product_id, {
       fromPrice,
       toPrice,
-      max_sale: parseFloat(max_sale),
+      max_sale,
     });
     const response = {
       data,
@@ -176,9 +169,33 @@ export const updateDetailById = async (req, res) => {
         },
       };
     });
-    await productDetailModel.bulkWrite(bulkWriteOptions);
+
+    const data = await productDetailModel.bulkWrite(bulkWriteOptions);
+    const listDetail = await productDetailModel.find({
+      product_id: body[0].product_id,
+    });
+
+    listDetail.sort((a, b) => a.price - b.price);
+    const fromPrice = listDetail[0].price;
+    const toPrice = listDetail[listDetail.length - 1].price;
+    let max_sale;
+    if (body.length === 1 && body.length !== 0) {
+      max_sale = parseFloat(body[0].sale);
+    } else {
+      max_sale = body.reduce((maxElement, currentElement) => {
+        return parseFloat(currentElement.sale) > parseFloat(maxElement.sale)
+          ? currentElement
+          : maxElement;
+      }, body[0]);
+    }
+    await productRepository.update(body[0].product_id, {
+      fromPrice,
+      toPrice,
+      max_sale: max_sale?.sale,
+    });
+
     const response = {
-      data: null,
+      data,
       message: "Cập nhật sản phẩm thành công",
     };
 
@@ -333,7 +350,9 @@ export const removeImage = async (req, res) => {
 export const getSaleProduct = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 16;
-    const product = await productModel.find({ max_sale: { $gt: 0 } }).limit(limit);
+    const product = await productModel
+      .find({ max_sale: { $gt: 0 } })
+      .limit(limit);
 
     const response = {
       data: product,
