@@ -169,9 +169,20 @@ export const updateDetailById = async (req, res) => {
         },
       };
     });
-    await productDetailModel.bulkWrite(bulkWriteOptions);
+    const data = await productDetailModel.bulkWrite(bulkWriteOptions);
+    const listDetail = await productDetailModel.find({
+      product_id: body[0].product_id,
+    });
+
+    
+    listDetail.sort((a, b) => a.price - b.price);
+    const fromPrice = listDetail[0].price;
+    const toPrice = listDetail[listDetail.length - 1].price;
+
+    await productRepository.update(body[0].product_id, { fromPrice, toPrice });
+
     const response = {
-      data: null,
+      data,
       message: "Cập nhật sản phẩm thành công",
     };
 
