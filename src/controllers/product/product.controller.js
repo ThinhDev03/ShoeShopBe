@@ -184,14 +184,14 @@ export const updateDetailById = async (req, res) => {
     } else {
       max_sale = body.reduce((maxElement, currentElement) => {
         return parseFloat(currentElement.sale) > parseFloat(maxElement.sale)
-          ? currentElement.sale
+          ? currentElement
           : maxElement;
       }, body[0]);
     }
     await productRepository.update(body[0].product_id, {
       fromPrice,
       toPrice,
-      max_sale,
+      max_sale: max_sale?.sale,
     });
 
     const response = {
