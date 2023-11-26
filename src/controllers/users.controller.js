@@ -32,7 +32,7 @@ const register = async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ message: "Đăng ký tài khoản không thành công", error });
+      .json({ message: "Tài khoản đã tồn tại.", error });
   }
 };
 

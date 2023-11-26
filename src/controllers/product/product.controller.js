@@ -11,6 +11,7 @@ export const read = async (req, res) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || "";
+    const brand = req.query.brand ? { brand_id: req.query.brand } : {};
     const category = req.query.category
       ? { category_id: req.query.category }
       : {};
@@ -19,18 +20,22 @@ export const read = async (req, res) => {
     const product = await productModel
       .find({
         ...category,
+        ...brand,
         name: { $regex: search, $options: "i" },
       })
+      .populate("brand_id") // Populate brand_id with brand data
+      .populate("category_id") // Populate category_id with category data
       .skip(perPage)
       .limit(limit)
       .sort({ createdAt: -1 })
       .lean();
     const total = await productRepository.totalRecord({
       ...category,
+      ...brand,
       name: { $regex: search, $options: "i" },
     });
     const pageSize = Math.ceil(total / limit);
-
+    console.log(product);
     return res.status(200).json({
       data: product,
       total,
