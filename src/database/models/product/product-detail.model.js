@@ -32,6 +32,7 @@ const ProductSchema = new Schema(
     },
     price: {
       type: Number,
+      minimum: 0,
       required: true,
     },
     sale: {
