@@ -1,13 +1,14 @@
-import { responseError, responseSuccess } from "../../helpers/response";
+import { responseError, responseSuccess } from "../helpers/response";
 import voucherRepository from "../repositories/voucher.repository";
 
 // [GET] api/brand
 export const read = async (req, res) => {
   try {
+    const point_discount = parseInt(req.query.point_discount) || 0;
     const data = await voucherRepository.read();
-
+    const newData = data.filter((item) => point_discount > item.point_discount);
     const response = {
-      data,
+      data: newData,
       message: "Lấy danh sách voucher thành công",
     };
 
@@ -34,7 +35,6 @@ export const create = async (req, res) => {
   }
 };
 
-// [POST] api/brand/:id
 export const update = async (req, res) => {
   try {
     const body = req.body;
