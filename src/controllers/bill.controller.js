@@ -169,9 +169,6 @@ export const create = async (req, res) => {
         product.product_id
       );
       const quantity = currentProduct?.quantity - product?.quantity;
-      console.log("currentProduct: ", currentProduct);
-      console.log("quantity: ", quantity);
-      console.log("product?.quantity: ", product?.quantity);
       await productDetailModel.findByIdAndUpdate(
         product.product_id,
         { quantity },

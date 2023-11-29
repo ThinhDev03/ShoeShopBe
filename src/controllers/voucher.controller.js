@@ -4,14 +4,22 @@ import voucherRepository from "../repositories/voucher.repository";
 // [GET] api/brand
 export const read = async (req, res) => {
   try {
-    const point_discount = parseInt(req.query.point_discount) || 0;
+    const point_discount = parseInt(req.query.point_discount);
     const data = await voucherRepository.read();
-    const newData = data.filter((item) => point_discount > item.point_discount);
+    if (point_discount) {
+      const newData = data.filter(
+        (item) => parseInt(point_discount) > parseInt(item.point_discount)
+      );
+      const response = {
+        data: newData,
+        message: "Lấy danh sách voucher thành công",
+      };
+      return responseSuccess(res, response);
+    }
     const response = {
-      data: newData,
+      data: data,
       message: "Lấy danh sách voucher thành công",
     };
-
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);

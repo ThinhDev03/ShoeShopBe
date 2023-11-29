@@ -95,7 +95,6 @@ export const getTopRate = async (req, res) => {
           rate:
             (p.rate + currentProduct.total_rate) / (currentProduct.count + 1),
         };
-        console.log("overrideProduct: ", overrideProduct);
         map.set(product_id, overrideProduct);
       } else {
         map.set(product_id, { ...newProduct, count: 1 });
