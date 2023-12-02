@@ -17,11 +17,9 @@ const VoucherSchema = new Schema(
     },
     start_date: {
       type: String,
-      required: true,
     },
     end_date: {
       type: String,
-      required: true,
     },
   },
   {

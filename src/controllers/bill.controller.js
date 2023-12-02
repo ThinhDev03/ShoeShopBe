@@ -164,6 +164,17 @@ export const create = async (req, res) => {
     const billDetails = products.map(({ cart_id, ...product }) => {
       return { bill_id: data.id, ...product };
     });
+    products.forEach(async (product) => {
+      const currentProduct = await productDetailModel.findById(
+        product.product_id
+      );
+      const quantity = currentProduct?.quantity - product?.quantity;
+      await productDetailModel.findByIdAndUpdate(
+        product.product_id,
+        { quantity },
+        { new: true }
+      );
+    });
     await billDetailRepository.saveMultiple(billDetails);
     const response = {
       data,
@@ -194,25 +205,17 @@ export const update = async (req, res) => {
     await paymentRepository.update(payment_id, { status: payment_status });
 
     // if PACKING subtraction quantity in product detail
-    if (formBody.status === "PACKING") {
-      products.forEach(async (product) => {
-        const currentProduct = await productDetailModel.findById(
-          product.productDetail_id
-        );
-        const quantity = currentProduct?.quantity - product?.quantity;
-        await productDetailModel.findByIdAndUpdate(
-          product.productDetail_id,
-          { quantity },
-          { new: true }
-        );
-      });
-    } else if (formBody.status === "CANCELED") {
+    if (formBody.status === "CANCELED") {
       products.forEach(async (product) => {
         const currentProduct = await productDetailModel.findById(
           product.productDetail_id
         );
         console.log("currentProduct: ", currentProduct);
-        const quantity = currentProduct?.quantity + product?.quantity;
+        const currentQuantity =
+          currentProduct?.quantity === -1 ? 0 : currentProduct?.quantity;
+        const quantity = currentQuantity + product?.quantity;
+        console.log("quantity: ", quantity);
+        console.log("product?.quantity: ", product?.quantity);
         await productDetailModel.findByIdAndUpdate(
           product.productDetail_id,
           { quantity },
