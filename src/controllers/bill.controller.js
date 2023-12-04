@@ -242,12 +242,19 @@ export const updateStatus = async (req, res) => {
     const data = await billRepository.update(id, body);
 
     const billDetail = await billDetailRepository.find({ bill_id: id });
-
+    console.log(body);
     billDetail.forEach(async (product) => {
       const currentProduct = await productDetailModel.findById(
         product.product_id
       );
-      const quantity = currentProduct.quantity - product.quantity;
+
+      var quantity;
+      if (body.status === "CANCELED") {
+        quantity = currentProduct.quantity + product.quantity;
+      } else {
+        quantity = currentProduct.quantity;
+      }
+
       await productDetailModel.findByIdAndUpdate(
         product.product_id,
         { quantity },
