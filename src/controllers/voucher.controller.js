@@ -1,16 +1,25 @@
-import { responseError, responseSuccess } from "../../helpers/response";
+import { responseError, responseSuccess } from "../helpers/response";
 import voucherRepository from "../repositories/voucher.repository";
 
 // [GET] api/brand
 export const read = async (req, res) => {
   try {
+    const point_discount = parseInt(req.query.point_discount);
     const data = await voucherRepository.read();
-
+    if (point_discount) {
+      const newData = data.filter(
+        (item) => parseInt(point_discount) > parseInt(item.point_discount)
+      );
+      const response = {
+        data: newData,
+        message: "Lấy danh sách voucher thành công",
+      };
+      return responseSuccess(res, response);
+    }
     const response = {
-      data,
+      data: data,
       message: "Lấy danh sách voucher thành công",
     };
-
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
@@ -34,7 +43,6 @@ export const create = async (req, res) => {
   }
 };
 
-// [POST] api/brand/:id
 export const update = async (req, res) => {
   try {
     const body = req.body;

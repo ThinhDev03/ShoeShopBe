@@ -4,7 +4,8 @@ import UserSchema from "../database/models/user.model";
 const checkAuth = async (req, res, next) => {
   try {
     const { username, password } = req.body;
-    const existUser = await UserSchema.findOne({ username });
+    const existUser = await UserSchema.findOne({ username, is_locked: false });
+
     if (!existUser) {
       return res.status(400).json({ message: "username not found" });
     }

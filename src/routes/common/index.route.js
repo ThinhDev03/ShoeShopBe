@@ -3,6 +3,7 @@ import cartRoute from "./cart.route";
 import commentRoute from "./comment.route";
 import paymentRoute from "./payment.route";
 import statisticRoute from "./statistics.route";
+import voucherRoute from "./voucher.route";
 
 const commonRoutes = {
   prefix: "/",
@@ -26,6 +27,10 @@ const commonRoutes = {
     {
       path: "statistic",
       route: statisticRoute,
+    },
+    {
+      path: "voucher",
+      route: voucherRoute,
     },
   ],
 };

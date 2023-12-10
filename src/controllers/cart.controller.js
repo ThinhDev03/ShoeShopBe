@@ -50,7 +50,6 @@ export const create = async (req, res) => {
     if (hasCart && dataDetail) {
       const detailQuantity = dataDetail.quantity;
       if (hasCart.quantity === MAX_QUANTITY) {
-        console.log(1);
         const response = {
           data: null,
           message: "Số lượng trong giỏ hàng đã đạt tới giới hạn cho phép.",
@@ -76,7 +75,6 @@ export const create = async (req, res) => {
       }
 
       if (totalQuantity > MAX_QUANTITY) {
-        console.log(3);
         return res.status(STATUS.BAD_REQUEST).send({
           data: null,
           message: "Số lượng trong giỏ hàng đã đạt tới giới hạn cho phép.",
