@@ -80,7 +80,7 @@ export const getTopRate = async (req, res) => {
 
     const map = new Map();
     data.forEach((p) => {
-      const product_id = p.product_id._id;
+      const product_id = p.product_id?._id;
       const newProduct = {
         rate: p.rate,
         total_rate: p.rate,
@@ -90,7 +90,7 @@ export const getTopRate = async (req, res) => {
       if (map.has(product_id)) {
         const overrideProduct = {
           ...newProduct,
-          total_rate: currentProduct.rate + p.rate,
+          total_rate: currentProduct.total_rate + p.rate,
           count: parseInt(currentProduct.count) + 1,
           rate:
             (p.rate + currentProduct.total_rate) / (currentProduct.count + 1),

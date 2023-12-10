@@ -27,12 +27,27 @@ const validate = (data) => {
 const register = async (req, res) => {
   try {
     const body = req.body;
+    const existUser = await Auth.findOne({ username: body.username });
+    if (existUser) {
+      return res
+        .status(400)
+        .json({ message: { username: "Tài khoản đã tồn tại" } });
+    }
+
+    const existEmail = await Auth.findOne({ email: body.email });
+    if (existEmail) {
+      return res.status(400).json({
+        message: {
+          email: "Email đã tồn tại",
+        },
+      });
+    }
+
     const user = await new Auth(body).save();
     return res.status(200).json({ message: "register success", user });
   } catch (error) {
-    res
-      .status(400)
-      .json({ message: "Đăng ký tài khoản không thành công", error });
+    console.log(error);
+    res.status(400).json({ message: "Đã có lỗi xảy ra vui lòng thử lại", error });
   }
 };
 
