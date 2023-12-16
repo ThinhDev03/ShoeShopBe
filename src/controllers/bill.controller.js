@@ -1,11 +1,13 @@
 import billDetailModel from "../database/models/bill-detail.model";
 import billModel from "../database/models/bill.model";
 import productDetailModel from "../database/models/product/product-detail.model";
+import { getBillNotify } from "../helpers/mailTemplate";
 import { responseError, responseSuccess } from "../helpers/response";
 import billDetailRepository from "../repositories/bill-detail.repository";
 import billRepository from "../repositories/bill.repository";
 import cartRepository from "../repositories/cart.repository";
 import paymentRepository from "../repositories/payment.repository";
+import { sendMail } from "../services/mailler.service";
 
 // [GET] api/bill
 export const read = async (req, res) => {
@@ -180,7 +182,8 @@ export const create = async (req, res) => {
       data,
       message: "Tạo hóa đơn thành công",
     };
-
+    const resp = await sendMail(getBillNotify(body));
+    console.log(resp);
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);
