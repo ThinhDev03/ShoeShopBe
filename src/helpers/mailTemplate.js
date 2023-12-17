@@ -19,7 +19,7 @@ export const getBillNotify = (bill) => {
          <br>
          <b>Trân trọng!</b>
          <br>
-         <i>Web bán giày Fpoly</i>
+         <i>Web bán giày 7Sneaker</i>
        </div>
       `,
   };
