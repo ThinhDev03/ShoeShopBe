@@ -5,7 +5,7 @@ export const sendMail = async ({ to, subject, html }) =>
     {
       from: {
         address: process.env.AUTH_EMAIL,
-        name: "Web bán giày Fpoly",
+        name: "Web bán giày 7Sneaker",
       },
       to: to,
       subject: subject,
