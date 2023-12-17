@@ -18,9 +18,16 @@ const verifyToken = async (req, res, next) => {
         return res.status(400).json({ message: "token wrong" });
       }
       const getUser = user._doc;
-      
-      const dataGetDB = await UserSchema.findOne({ _id: getUser._id });
-      
+
+      const dataGetDB = await UserSchema.findOne({
+        _id: getUser._id,
+        is_locked: false,
+      });
+
+      if (!dataGetDB) {
+        return res.status(400);
+      }
+
       const { password, ...data } = dataGetDB._doc;
 
       return res.status(200).json({ data });
