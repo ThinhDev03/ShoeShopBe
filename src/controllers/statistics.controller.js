@@ -13,10 +13,13 @@ const getCreateAt = (req) => {
   const startDate = new Date(start);
   const endDate = new Date(end);
 
+  console.log("start: ", start);
+  console.log(startDate);
+  console.log(endDate);
   return {
     createdAt: {
-      $gte: startDate.toISOString(),
-      $lt: endDate.toISOString(),
+      $gte: startDate,
+      $lt: endDate,
     },
   };
 };
@@ -127,8 +130,8 @@ export const getRevenue = async (req, res) => {
       billDetailModel.find({
         createdAt,
       }),
-      authModel.countDocuments({ role: "USER" }),
-      billModel.countDocuments({ status: "RECEIVED" }),
+      authModel.countDocuments({ role: "USER", createdAt }),
+      billModel.countDocuments({ status: "RECEIVED", createdAt }),
     ]);
 
     const total_money = bill.reduce((init, current) => {

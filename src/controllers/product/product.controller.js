@@ -357,8 +357,10 @@ export const removeImage = async (req, res) => {
 export const getSaleProduct = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 16;
+    const is_locked = req.query.is_locked || false;
+
     const product = await productModel
-      .find({ max_sale: { $gt: 0 } })
+      .find({ max_sale: { $gt: 0 }, is_locked })
       .limit(limit);
 
     const response = {
