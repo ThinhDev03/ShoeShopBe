@@ -4,8 +4,9 @@ import categoryRepository from "../../repositories/product/category.repository";
 // [GET] api/category
 export const read = async (req, res) => {
   try {
-    const data = await categoryRepository.read();
+    const is_locked = req.query.is_locked || false;
 
+    const data = await categoryRepository.find({ is_locked });
     const response = {
       data,
       message: "Lấy danh sách danh mục thành công ",
@@ -70,7 +71,6 @@ export const findOne = async (req, res) => {
   }
 };
 
-
 // [DELETE] api/category/remove/:id
 export const remove = async (req, res) => {
   try {
@@ -82,7 +82,6 @@ export const remove = async (req, res) => {
       message: "Xóa danh mục thành công ",
     };
     return responseSuccess(res, response);
-
   } catch (error) {
     return responseError(res, error);
   }
