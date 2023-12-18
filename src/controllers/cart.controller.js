@@ -15,7 +15,7 @@ export const getByUserId = async (req, res) => {
       return {
         cart_id: product._id,
         product_id: product.product_id._id,
-        name: product.product_id.product_id.name,
+        name: product?.product_id?.product_id?.name,
         price: product.product_id.price,
         sale: product.product_id.sale || 0,
         quantity: product.quantity,

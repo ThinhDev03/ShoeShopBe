@@ -36,6 +36,10 @@ const ProductSchema = new Schema(
     toPrice: {
       type: String,
     },
+    is_locked: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
