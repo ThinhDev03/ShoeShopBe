@@ -10,6 +10,11 @@ const CategorySchema = new Schema(
       type: String,
       required: true,
     },
+    is_locked: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   },
   {
     timestamps: true,

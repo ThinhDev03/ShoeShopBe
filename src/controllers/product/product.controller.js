@@ -12,6 +12,7 @@ export const read = async (req, res) => {
     const limit = parseInt(req.query.limit) || 10;
     const search = req.query.search || "";
     const brand = req.query.brand ? { brand_id: req.query.brand } : {};
+    const is_locked = req.query.is_locked || false;
     const category = req.query.category
       ? { category_id: req.query.category }
       : {};
@@ -22,6 +23,7 @@ export const read = async (req, res) => {
         ...category,
         ...brand,
         name: { $regex: search, $options: "i" },
+        is_locked,
       })
       .populate("brand_id") // Populate brand_id with brand data
       .populate("category_id") // Populate category_id with category data
@@ -33,6 +35,7 @@ export const read = async (req, res) => {
       ...category,
       ...brand,
       name: { $regex: search, $options: "i" },
+      is_locked,
     });
     const pageSize = Math.ceil(total / limit);
     return res.status(200).json({
@@ -354,8 +357,10 @@ export const removeImage = async (req, res) => {
 export const getSaleProduct = async (req, res, next) => {
   try {
     const limit = parseInt(req.query.limit) || 16;
+    const is_locked = req.query.is_locked || false;
+
     const product = await productModel
-      .find({ max_sale: { $gt: 0 } })
+      .find({ max_sale: { $gt: 0 }, is_locked })
       .limit(limit);
 
     const response = {
