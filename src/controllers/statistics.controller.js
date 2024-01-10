@@ -1,4 +1,5 @@
 import billDetailModel from "../database/models/bill-detail.model";
+import billHistory from "../database/models/bill-history";
 import billModel from "../database/models/bill.model";
 import commentModel from "../database/models/comment.model";
 import authModel from "../database/models/user.model";
@@ -215,6 +216,56 @@ export const getAllRevenue = async (req, res) => {
     };
 
     return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+export const userCancelMany = async (req, res) => {
+  try {
+    const response = await billHistory
+      .aggregate([
+        {
+          $match: { bill_status: "CANCELED" }, // Lọc các bản ghi có status là CANCED
+        },
+        {
+          $group: {
+            _id: "$user_updated", // Nhóm theo user_updated
+            count: { $sum: 1 }, // Đếm số lần CANCELED
+          },
+        },
+        {
+          $lookup: {
+            from: "users", // Tên bảng users
+            localField: "_id", // Trường trong bảng Status
+            foreignField: "_id", // Trường trong bảng Users
+            as: "user", // Kết quả sẽ được lưu trong mảng user
+          },
+        },
+        {
+          $unwind: "$user", // Giải nén mảng user
+        },
+        {
+          $match: { "user.is_locked": false }, // Lọc các người dùng có is_locked = false
+        },
+        {
+          $project: {
+            userName: "$user.fullname", // Trích xuất tên người dùng
+            _id: "$user._id", // Trích xuất tên người dùng
+            role: "$user.role", // Trích xuất tên người dùng
+            count: 1, // Số lần CANCED
+          },
+        },
+        {
+          $sort: { count: -1 }, // Sắp xếp theo số lần CANCED giảm dần
+        },
+      ])
+      .limit(10);
+    const responses = {
+      data: response,
+      message: "Lấy thống kê thành công",
+    };
+    return responseSuccess(res, responses);
   } catch (error) {
     return responseError(res, error);
   }
