@@ -4,6 +4,7 @@ import productDetailModel from "../database/models/product/product-detail.model"
 import { getBillNotify } from "../helpers/mailTemplate";
 import { responseError, responseSuccess } from "../helpers/response";
 import billDetailRepository from "../repositories/bill-detail.repository";
+import billHistoryRepository from "../repositories/bill-history.repository";
 import billRepository from "../repositories/bill.repository";
 import cartRepository from "../repositories/cart.repository";
 import paymentRepository from "../repositories/payment.repository";
@@ -195,7 +196,8 @@ export const update = async (req, res) => {
   try {
     const body = req.body;
     const { id } = req.params;
-    const { products, payment_id, payment_status, ...formBody } = body;
+    const { products, payment_id, payment_status, user_updated, ...formBody } =
+      body;
     const data = await billRepository.update(id, formBody);
 
     if (products && !formBody?.status) {
@@ -206,19 +208,21 @@ export const update = async (req, res) => {
       await billDetailRepository.saveMultiple(billDetails);
     }
     await paymentRepository.update(payment_id, { status: payment_status });
-
+    await billHistoryRepository.create({
+      user_updated,
+      bill_id: id,
+      bill_status: formBody?.status,
+      payment_status,
+    });
     // if PACKING subtraction quantity in product detail
     if (formBody.status === "CANCELED") {
       products.forEach(async (product) => {
         const currentProduct = await productDetailModel.findById(
           product.productDetail_id
         );
-        console.log("currentProduct: ", currentProduct);
         const currentQuantity =
           currentProduct?.quantity === -1 ? 0 : currentProduct?.quantity;
         const quantity = currentQuantity + product?.quantity;
-        console.log("quantity: ", quantity);
-        console.log("product?.quantity: ", product?.quantity);
         await productDetailModel.findByIdAndUpdate(
           product.productDetail_id,
           { quantity },
@@ -245,7 +249,14 @@ export const updateStatus = async (req, res) => {
     const data = await billRepository.update(id, body);
 
     const billDetail = await billDetailRepository.find({ bill_id: id });
-    console.log(body);
+
+    await billHistoryRepository.create({
+      user_updated: body.user_updated,
+      bill_id: id,
+      bill_status: body.status,
+      payment_status: body.payment_status,
+    });
+    
     billDetail.forEach(async (product) => {
       const currentProduct = await productDetailModel.findById(
         product.product_id
@@ -269,6 +280,21 @@ export const updateStatus = async (req, res) => {
       data,
       message: "Cập nhật hoá đơn thành công",
     };
+    return responseSuccess(res, response);
+  } catch (error) {
+    return responseError(res, error);
+  }
+};
+
+export const getBillHistoryByBillId = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const data = await billHistoryRepository.find({ bill_id: id });
+    const response = {
+      data,
+      message: "Lấy danh bill mục thành công ",
+    };
+
     return responseSuccess(res, response);
   } catch (error) {
     return responseError(res, error);

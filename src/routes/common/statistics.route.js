@@ -7,5 +7,6 @@ statisticRoute.get("/revenue", statisticController.getRevenue);
 statisticRoute.get("/top-rate", statisticController.getTopRate);
 statisticRoute.get("/revenue-year", statisticController.getRevenueWithYear);
 statisticRoute.get("/revenue-all", statisticController.getAllRevenue);
+statisticRoute.get("/user-cancel", statisticController.userCancelMany);
 
 export default statisticRoute;
