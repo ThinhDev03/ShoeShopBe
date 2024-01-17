@@ -14,6 +14,9 @@ const getCreateAt = (req) => {
   const startDate = new Date(start);
   const endDate = new Date(end);
 
+  endDate.setHours(23);
+  endDate.setMinutes(59);
+
   return {
     createdAt: {
       $gte: startDate,
